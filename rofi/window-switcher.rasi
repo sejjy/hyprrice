@@ -1,0 +1,65 @@
+/* App launcher, window switcher, file browser */
+
+configuration {
+  font:                     "JetBrainsMono Nerd Font 8";
+  display-window:           "󰣆 ";
+  window-format:            "{c:10} :: {t:24}";
+  
+  window {
+    hide-active-window:     true; /* Not working :/ */
+  }
+}
+
+@theme "~/.config/rofi/theme.rasi"
+
+/* Window */
+
+window {
+  width:                    250px;
+  border:                   2px;
+  border-radius:            10px;
+  border-color:             @main-br;
+  background-color:         @main-bg;
+  children:                 [ mainbox ];
+}
+
+mainbox {
+  spacing:                  0;
+  background-color:         inherit;
+  text-color:               @main-fg;
+  children:                 [ inputbar, listview ];
+}
+
+/* Input */
+
+inputbar {
+  margin:                   -15px 0 0 0;
+}
+
+/* List */
+
+listview {
+  lines:                    6;
+  cycle:                    false;
+  padding:                  8px;
+  background-color:         inherit;
+}
+
+element {
+  padding:                  6px;
+  cursor:                   pointer;
+  background-color:         inherit;
+  text-color:               @main-fg;
+}
+element selected active,
+element selected normal {
+  border-radius:            6px;
+  background-color:         @select-bg;
+  text-color:               @select-fg;
+}
+element-text {
+  padding:                  0 6px;
+  cursor:                   inherit;
+  background-color:         inherit;
+  text-color:               inherit;
+}

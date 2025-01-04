@@ -1,0 +1,76 @@
+/* Clipboard */
+
+configuration {
+  font:                     "JetBrainsMono Nerd Font 8";
+}
+
+@theme "~/.config/rofi/theme.rasi"
+
+/* Window */
+
+window {
+  width:                    250px;
+  border:                   2px;
+  border-radius:            10px;
+  border-color:             @main-br;
+  background-color:         @main-bg;
+  children:                 [ mainbox ];
+}
+
+mainbox {
+  spacing:                  0;
+  background-color:         inherit;
+  text-color:               @main-fg;
+  children:                 [ inputbar, listview ];
+}
+
+/* Input */
+
+inputbar {
+  margin:                   8px 8px 0 8px;
+  border-radius:            6px;
+  spacing:                  inherit;
+  background-color:         @input-bg;
+  text-color:               inherit;
+  children:                 [ prompt, entry ];
+}
+prompt {
+  padding:                  6px 6px 6px 10px;
+  background-color:         inherit;
+  text-color:               inherit;
+}
+entry {
+  placeholder:              "Search";
+  padding:                  6px 0;
+  cursor:                   text;
+  background-color:         inherit;
+  text-color:               inherit;
+}
+
+/* List */
+
+listview {
+  lines:                    6;
+  cycle:                    false;
+  padding:                  8px;
+  background-color:         inherit;
+}
+
+element {
+  padding:                  6px;
+  cursor:                   pointer;
+  background-color:         inherit;
+  text-color:               @main-fg;
+}
+element selected active,
+element selected normal {
+  border-radius:            6px;
+  background-color:         @select-bg;
+  text-color:               @select-fg;
+}
+element-text {
+  padding:                  0 6px;
+  cursor:                   inherit;
+  background-color:         inherit;
+  text-color:               inherit;
+}
