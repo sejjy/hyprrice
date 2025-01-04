@@ -1,0 +1,5 @@
+[General]
+theme=wallbash
+
+[Applications]
+wallbash=pcmanfm-qt

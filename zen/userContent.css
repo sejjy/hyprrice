@@ -1,0 +1,39 @@
+/*
+  zenplified - An ultra-minimal Zen Browser UI configuration
+  Author: Jesse Mirabel (sejjy)
+  GitHub: https://github.com/sejjy/zenplified
+*/
+
+/* Page */
+
+@-moz-document url-prefix("chrome:"),
+url("about:blank"),
+url("about:home"),
+url("about:newtab"),
+url("about:privatebrowsing") {
+  /*
+  /* dark theme */
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #0d0c0c !important;
+    }
+  }
+  /* light theme */
+  @media (prefers-color-scheme: light) {
+    body {
+      background-color: #ffffff !important;
+    }
+  }
+
+  /* hide search bar and personalize button */
+  .search-inner-wrapper,
+  .personalizeButtonWrapper {
+    display: none !important;
+  }
+
+  /* center logo and wordmark */
+  .logo-and-wordmark {
+    margin-bottom: 0 !important;
+    height: 50vh;
+  }
+}
