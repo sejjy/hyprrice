@@ -8,6 +8,12 @@ PAUSE_ICON="<span color='#b4befe'> 󰏤   </span>"
 # this uses hair spaces and thin spaces
 # \u200A󰏤 \u2009\u2009\u200A
 
+# function to escape special characters for Pango markup
+escape_markup() {
+  local text="$1"
+  echo "$text" | sed -e 's/&/&amp;/g' -e 's/</&lt;/g' -e 's/>/&gt;/g' -e "s/'/&apos;/g" -e 's/"/&quot;/g'
+}
+
 # list active players
 players=$(playerctl --list-all)
 
@@ -23,6 +29,10 @@ format_output() {
   status=$(playerctl --player="$player" status 2>/dev/null)
   artist=$(playerctl --player="$player" metadata artist 2>/dev/null)
   title=$(playerctl --player="$player" metadata title 2>/dev/null)
+
+  # escape special characters
+  artist=$(escape_markup "$artist")
+  title=$(escape_markup "$title")
 
   # icon based on player and status
   if [[ "$status" == "Playing" ]]; then

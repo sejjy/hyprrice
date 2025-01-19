@@ -14,16 +14,15 @@ find_next() {
 
 # screenshot type
 case "$1" in
-"full")
-  # full-screen screenshot
+"screen")
+  # all visible outputs
   FILENAME=$(find_next)
   grimblast copysave screen "$SCREENSHOT_DIR/$FILENAME"
   ;;
-"partial")
-  # partial screenshot with region selection
+"area")
+  # manually select a region or window
   FILENAME=$(find_next)
-  grimblast copysave area "$SCREENSHOT_DIR/$FILENAME"
-  # --freeze does not work
+  grimblast --freeze copysave area "$SCREENSHOT_DIR/$FILENAME"
   ;;
 *)
   echo "Invalid argument"
