@@ -71,6 +71,7 @@ tooltip label {
 #window,
 #custom-cpuinfo,
 #memory,
+/* #cpu, */
 #custom-cpu,
 #idle_inhibitor,
 #clock,
@@ -79,6 +80,7 @@ tooltip label {
 #custom-update,
 #custom-media,
 #pulseaudio,
+/* #backlight, */
 #custom-backlight,
 #battery,
 #custom-power {
@@ -182,6 +184,11 @@ tooltip label {
   background: @memory;
   padding-left: 3px;
 }
+/*
+#cpu {
+  background: @cpu;
+}
+*/
 #custom-cpu {
   background: @cpu;
 }
@@ -227,6 +234,11 @@ tooltip label {
   background: @time;
   margin-right: -2px;
   padding: 0 0 0 7px;
+}
+#idle_inhibitor:hover {
+  color: @hover-fg;
+  text-shadow: none;
+  box-shadow: none;
 }
 #clock.time {
   background: @time;
@@ -326,6 +338,11 @@ tooltip label {
   background: @pulseaudio;
   padding-left: 2px;
 }
+/*
+#backlight {
+  background: @backlight;
+}
+*/
 #custom-backlight {
   background: @backlight;
 }
@@ -338,13 +355,8 @@ tooltip label {
   padding-left: 2px;
 }
 #battery {
-  background: @battery;
-}
-#battery.full {
-  color: @full;
-}
-#battery.good {
   color: @module-fg;
+  background: @battery;
 }
 #battery.warning {
   color: @warning;
