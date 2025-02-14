@@ -27,13 +27,7 @@ mainbox {
   spacing:                  0;
   background-color:         inherit;
   text-color:               @main-fg;
-  children:                 [ inputbar, listview ];
-}
-
-/* Input */
-
-inputbar {
-  margin:                   -15px 0 0 0;
+  children:                 [ listview ];
 }
 
 /* List */

@@ -77,3 +77,13 @@ element-text {
   background-color:         inherit;
   text-color:               inherit;
 }
+
+error-message {
+  padding:                  6px;
+  background-color:         @main-bg;
+}
+textbox {
+  padding:                  6px;
+  background-color:         inherit;
+  text-color:               @main-fg;
+}
