@@ -15,7 +15,7 @@ case "$1" in
   pkill -x rofi || rofi -show calc -modi calc -no-show-match -no-sort -no-history -lines 0 -terse -config ".config/rofi/calculator.rasi" -hint-welcome "CALCULATOR" -hint-result "=>  "
   ;;
 "emoji")
-  pkill -x rofi || rofi -modi emoji -show emoji -kb-secondary-copy "" -kb-custom-1 Ctrl+c -config "$HOME/.config/rofi/emoji-picker.rasi"
+  pkill -x rofi || rofi -modi emoji -show emoji -kb-secondary-copy "" -kb-custom-1 Ctrl+c -kb-accept-alt "" -config "$HOME/.config/rofi/emoji-picker.rasi" -emoji-format "<span font='12'>{emoji}</span>"
   ;;
 "power")
   pkill -x rofi || "$HOME/.config/waybar/scripts/power-menu.sh"
