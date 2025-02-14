@@ -8,10 +8,11 @@ PAUSE_ICON="<span color='#b4befe'> 󰏤   </span>"
 # this uses hair spaces and thin spaces
 # \u200A󰏤 \u2009\u2009\u200A
 
-# function to escape special characters for Pango markup
+# function to escape ampersand (&)
 escape_markup() {
   local text="$1"
-  echo "$text" | sed -e 's/&/&amp;/g' -e 's/</&lt;/g' -e 's/>/&gt;/g' -e "s/'/&apos;/g" -e 's/"/&quot;/g'
+  text="${text//&/&amp;}"
+  echo "$text"
 }
 
 # list active players
