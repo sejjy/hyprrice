@@ -25,12 +25,13 @@ get_password() {
 while true; do
   wifi_list() {
     nmcli --fields "SECURITY,SSID" device wifi list |
-      tail -n +2 |               # Skip header line
-      sed 's/  */ /g' |          # Multiple spaces to single space
-      sed -E "s/WPA*.?\S/󰤪 /g" | # Replace WPA* with wifi lock icon
-      sed "s/^--/󰤨 /g" |         # Replace '--' (open networks) with wifi icon
-      sed "s/󰤪  󰤪/󰤪/g" |         # Remove duplicate icons
-      sed "/--/d"                # Remove lines containing '--'
+      tail -n +2 |               # Skip the header line from nmcli output
+      sed 's/  */ /g' |          # Replace multiple spaces with a single space
+      sed -E "s/WPA*.?\S/󰤪 /g" | # Replace 'WPA*' with a Wi-Fi lock icon
+      sed "s/^--/󰤨 /g" |         # Replace '--' (open networks) with an open Wi-Fi icon
+      sed "s/󰤪  󰤪/󰤪/g" |         # Remove duplicate Wi-Fi lock icons
+      sed "/--/d" |              # Remove lines containing '--' (empty SSIDs)
+      awk '!seen[$0]++'          # Filter out duplicate SSIDs
   }
 
   # Get Wi-Fi status
@@ -56,13 +57,13 @@ while true; do
     exit
     ;;
   "Enable Wi-Fi")
-    notify-send "Scanning for networks..."
+    notify-send "Scanning for networks..." -i "package-installed-outdated"
     nmcli radio wifi on
     nmcli device wifi rescan
     sleep 3
     ;;
   "Disable Wi-Fi")
-    notify-send "Wi-Fi Disabled"
+    notify-send "Wi-Fi Disabled" -i "package-broken"
     nmcli radio wifi off
     exit
     ;;
@@ -81,16 +82,18 @@ while true; do
     if [ -z "$wifi_password" ]; then
       # Without password
       if nmcli device wifi connect "$manual_ssid" | grep -q "successfully"; then
-        notify-send "Connected to \"$manual_ssid\"."
+        notify-send "Connected to \"$manual_ssid\"." -i "package-installed-outdated"
+        exit
       else
-        notify-send "Failed to connect to \"$manual_ssid\"."
+        notify-send "Failed to connect to \"$manual_ssid\"." -i "package-broken"
       fi
     else
       # With password
       if nmcli device wifi connect "$manual_ssid" password "$wifi_password" | grep -q "successfully"; then
-        notify-send "Connected to \"$manual_ssid\"."
+        notify-send "Connected to \"$manual_ssid\"." -i "package-installed-outdated"
+        exit
       else
-        notify-send "Failed to connect to \"$manual_ssid\"."
+        notify-send "Failed to connect to \"$manual_ssid\"." -i "package-broken"
       fi
     fi
     ;;
@@ -100,9 +103,10 @@ while true; do
 
     if echo "$saved_connections" | grep -qw "$selected_ssid"; then
       if nmcli connection up id "$selected_ssid" | grep -q "successfully"; then
-        notify-send "Connected to \"$selected_ssid\"."
+        notify-send "Connected to \"$selected_ssid\"." -i "package-installed-outdated"
+        exit
       else
-        notify-send "Failed to connect to \"$selected_ssid\"."
+        notify-send "Failed to connect to \"$selected_ssid\"." -i "package-broken"
       fi
     else
       # Handle secure network connection
@@ -111,9 +115,10 @@ while true; do
       fi
 
       if nmcli device wifi connect "$selected_ssid" password "$wifi_password" | grep -q "successfully"; then
-        notify-send "Connected to \"$selected_ssid\"."
+        notify-send "Connected to \"$selected_ssid\"." -i "package-installed-outdated"
+        exit
       else
-        notify-send "Failed to connect to \"$selected_ssid\"."
+        notify-send "Failed to connect to \"$selected_ssid\"." -i "package-broken"
       fi
     fi
     ;;
