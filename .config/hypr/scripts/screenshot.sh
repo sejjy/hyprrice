@@ -2,6 +2,7 @@
 
 # save directory
 SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
+DISPLAY_PATH="${SCREENSHOT_DIR#"$HOME"/}"
 
 # find the next available filename
 find_next() {
@@ -33,7 +34,7 @@ esac
 # check if the file is non-empty (valid screenshot)
 if [ -s "$SCREENSHOT_DIR/$FILENAME" ]; then
   # notification
-  notify-send "$FILENAME saved in $SCREENSHOT_DIR"
+  notify-send -i "$SCREENSHOT_DIR/$FILENAME" "$FILENAME saved in ~/$DISPLAY_PATH"
 else
   # if the file is empty, remove it
   rm "$SCREENSHOT_DIR/$FILENAME"
