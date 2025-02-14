@@ -2,8 +2,7 @@
 
 configuration {
   font:                     "JetBrainsMono Nerd Font 8";
-  display-emoji:            ":)";
-  emoji-display-format:     "{name}";
+  display-emoji:            "XD";
 }
 
 @theme "~/.config/rofi/theme.rasi"
@@ -53,7 +52,9 @@ entry {
 /* List */
 
 listview {
-  lines:                    5;
+  lines:                    4;
+  columns:                  5;
+  fixed-columns:            true;
   cycle:                    false;
   padding:                  8px;
   background-color:         inherit;
@@ -72,7 +73,7 @@ element selected normal {
   text-color:               @select-fg;
 }
 element-text {
-  padding:                  0 6px;
+  padding:                  5px 6px 8px 6px;
   cursor:                   inherit;
   background-color:         inherit;
   text-color:               inherit;
