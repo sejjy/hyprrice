@@ -34,6 +34,7 @@ bindkey '^H' backward-kill-word
 alias mkdir="mkdir -p"
 alias c="clear"
 alias e="exit"
+alias conf="cd $HOME/.config/ && ls"
 alias discord="discord --ozone-platform-hint=auto"
 alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'"
 
