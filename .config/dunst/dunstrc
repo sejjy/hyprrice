@@ -53,23 +53,23 @@
 
   # Turn on the progress bar. It appears when a progress hint is passed with
   # for example dunstify -h int:value:12
-  progress_bar = false
+  progress_bar = true
 
   # Set the progress bar height. This includes the frame, so make sure
   # it's at least twice as big as the frame width.
-  progress_bar_height = 10
+  progress_bar_height = 5
 
   # Set the frame width of the progress bar
-  progress_bar_frame_width = 1
+  progress_bar_frame_width = 0
 
   # Set the minimum width for the progress bar
-  progress_bar_min_width = 150
+  progress_bar_min_width = 200
 
   # Set the maximum width for the progress bar
-  progress_bar_max_width = 300
+  progress_bar_max_width = 200
 
   # Corner radius for the progress bar. 0 disables rounded corners.
-  progress_bar_corner_radius = 0
+  progress_bar_corner_radius = 2
 
   # Define which corners to round when drawing the progress bar. If progress_bar_corner_radius
   # is set to 0 this option will be ignored.
@@ -148,7 +148,7 @@
 
   # The spacing between lines.  If the height is smaller than the
   # font height, it will get raised to the font height.
-  line_height = 3
+  line_height = 2
 
   # Possible values are:
   # full: Allow a small subset of html markup in notifications:
@@ -344,15 +344,16 @@
   foreground = "#cdd6f4"
   timeout = 3
   # Icon for notifications with low urgency
-  default_icon = dialog-information
+  default_icon = state-information
 
 [urgency_normal]
   background = "#1e1e2e"
   foreground = "#cdd6f4"
+  highlight = "#89b4fa"
   timeout = 5
   #override_pause_level = 30
   # Icon for notifications with normal urgency
-  default_icon = dialog-information
+  default_icon = state-information
 
 [urgency_critical]
   background = "#1e1e2e"
@@ -361,7 +362,7 @@
   timeout = 0
   #override_pause_level = 60
   # Icon for notifications with critical urgency
-  default_icon = dialog-warning
+  default_icon = state-error
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
@@ -460,6 +461,10 @@
 #    # This notification will not be saved in history
 #    summary = "foobar"
 #    history_ignore = yes
+
+[history-ignore]
+  appname = state
+  history_ignore = yes
 
 #[skip-display]
 #    # This notification will not be displayed, but will be included in the history
