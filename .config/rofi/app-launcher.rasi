@@ -54,9 +54,13 @@ entry {
 
 listview {
   lines:                    6;
-  cycle:                    false;
+  cycle:                    true;
   padding:                  8px;
   background-color:         inherit;
+}
+
+element-icon {
+  background-color:         transparent;
 }
 
 element {
@@ -79,6 +83,7 @@ element-text {
 }
 
 error-message {
+  enabled:                  false;
   padding:                  6px;
   background-color:         @main-bg;
 }

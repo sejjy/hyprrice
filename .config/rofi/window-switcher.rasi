@@ -27,7 +27,17 @@ mainbox {
   spacing:                  0;
   background-color:         inherit;
   text-color:               @main-fg;
-  children:                 [ listview ];
+  children:                 [ textbox-custom, listview ];
+}
+
+textbox-custom {
+  horizontal-align:         0.5;
+  padding:                  8px 0 0 0;
+  expand:                   false;
+  background-color:         @main-bg;
+  text-color:               @main-fg;
+  expand:                   false;
+  content:                  "Windows";
 }
 
 /* List */

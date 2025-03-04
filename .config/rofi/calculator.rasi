@@ -2,7 +2,6 @@
 
 configuration {
   font:                     "JetBrainsMono Nerd Font 8";
-  display-calc:             ">>";
   calc-display-format:      "{name}";
 }
 
@@ -23,7 +22,17 @@ mainbox {
   spacing:                  0;
   background-color:         inherit;
   text-color:               @main-fg;
-  children:                 [ message, inputbar ];
+  children:                 [ textbox-custom, message, inputbar ];
+}
+
+textbox-custom {
+  horizontal-align:         0.5;
+  padding:                  8px 0 0 0;
+  expand:                   false;
+  background-color:         @main-bg;
+  text-color:               @main-fg;
+  expand:                   false;
+  content:                  "Calculator";
 }
 
 /* Input */
@@ -34,16 +43,12 @@ inputbar {
   spacing:                  inherit;
   background-color:         @input-bg;
   text-color:               inherit;
-  children:                 [ prompt, entry ];
+  children:                 [ entry ];
 
 }
-prompt {
-  padding:                  6px 11px;
-  background-color:         inherit;
-  text-color:               inherit;
-}
 entry {
-  padding:                  6px 0;
+  horizontal-align:         1;
+  padding:                  6px 12px;
   cursor:                   text;
   background-color:         inherit;
   text-color:               inherit;
@@ -57,6 +62,7 @@ message {
   text-color:               @main-fg;
 }
 textbox {
+  horizontal-align:         1;
   padding:                  6px;
   background-color:         inherit;
   text-color:               @main-fg;
