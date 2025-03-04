@@ -30,11 +30,29 @@ bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 bindkey '^H' backward-kill-word
 
-# aliases
+# <<--< aliases >-->>
+
+# shell
 alias mkdir="mkdir -p"
 alias c="clear"
 alias e="exit"
-alias conf="cd $HOME/.config/ && ls"
+
+# pacman
+alias pfd="pacman -Ss"
+alias pdl="sudo pacman -S"
+alias prm="sudo pacman -Rns"
+
+# yay
+alias yfd="yay -Ss"
+alias ydl="yay -S"
+alias yrm="yay -Rns"
+
+# nvim
+alias conf="cd $HOME/.config && ls"
+alias envim="cd $HOME/.config/nvim && nvim"
+alias ewbar="cd $HOME/.config/waybar && nvim"
+
+# misc
 alias discord="discord --ozone-platform-hint=auto"
 alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'"
 
