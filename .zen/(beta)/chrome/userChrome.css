@@ -8,25 +8,34 @@
 
 /* Navbar */
 
-#home-button,                           /* home */
-#reload-button,                         /* reload */
-#preferences-button,                    /* settings */
-.titlebar-buttonbox-container,          /* min, max, close */
+#home-button,
+/* home */
+#reload-button,
+/* reload */
+#preferences-button,
+/* settings */
+.titlebar-buttonbox-container,
+/* min, max, close */
 #zen-expand-sidebar-button,
 #zen-sidepanel-button,
 
 /* URL Bar */
 
-#star-button-box,                       /* bookmark */
-#reader-mode-button,                    /* reader mode */
-#blocked-permissions-container,         /* blocked permissions */
+#star-button-box,
+/* bookmark */
+#reader-mode-button,
+/* reader mode */
+#blocked-permissions-container,
+/* blocked permissions */
 #userContext-indicator,
 
 /* Sidebar */
 
-#tabs-newtab-button,                    /* (+ New Tab) */
-#zen-current-workspace-indicator-icon,  /* workspace icon */
-#tabbrowser-arrowscrollbox-periphery,   /* horizontal divider */
+#tabs-newtab-button,
+/* '+ New Tab' */
+#tabbrowser-arrowscrollbox-periphery,
+/* horizontal divider */
+/*#zen-current-workspace-indicator-container, /* workspace icon */
 
 /* Tab: sound icon */
 .tab-icon-overlay {
@@ -85,6 +94,7 @@
 #downloads-button {
   order: 1 !important;
 }
+
 #zen-profile-button {
   order: 2 !important;
 }
@@ -98,10 +108,13 @@
 
 /* only show close button (x) on hover */
 #tabbrowser-tabs {
-  .tabbrowser-tab:not([pinned]):is([visuallyselected]):not(:hover)
-    .tab-close-button {
+  .tabbrowser-tab:not([pinned]):is([visuallyselected]):not(:hover) .tab-close-button {
     display: none !important;
   }
+}
+
+.tab-close-button {
+  display: none !important;
 }
 
 /* Page */
@@ -111,6 +124,7 @@
   #tabbrowser-tabpanels {
     padding: 0 !important;
   }
+
   #tabbrowser-tabpanels .browserSidebarContainer:not([zen-split="true"]) {
     --zen-webview-border-radius: 0 !important;
     --zen-element-separation: 0 !important;
@@ -118,8 +132,7 @@
 }
 
 /* active page border in split view */
-#tabbrowser-tabpanels[zen-split-view="true"]
-  .browserSidebarContainer.deck-selected {
+#tabbrowser-tabpanels[zen-split-view="true"] .browserSidebarContainer.deck-selected {
   outline: var(--zen-colors-border) !important;
 }
 
@@ -127,6 +140,7 @@
 #statuspanel {
   margin: 6px !important;
 }
+
 #statuspanel-label {
   font-size: 12px !important;
   padding: 2px 10px !important;
@@ -139,6 +153,7 @@
 /* 01-18-2025 */
 
 @-moz-document url-prefix("chrome:") {
+
   /* Reduce height */
   @media (-moz-bool-pref: "zen.view.compact") and (-moz-bool-pref: "zen.view.compact.hide-tabbar") {
     #navigator-toolbox {
@@ -146,17 +161,21 @@
       height: 75vh !important;
     }
   }
+
   /* https://zen-browser.app/mods/c8d9e6e6-e702-4e15-8972-3596e57cf398/ */
   :root:not([customizing]) #back-button[disabled] {
     display: none !important;
   }
+
   :root:not([customizing]) #forward-button[disabled] {
     display: none !important;
   }
+
   /* https://zen-browser.app/mods/d7076c31-f6c1-4f28-b2e8-15b95f5a3d6f/ */
   .search-one-offs {
     display: none !important;
   }
+
   .search-one-offs:has(.searchbar-engine-one-off-item[selected]) {
     display: flex !important;
   }
@@ -166,6 +185,7 @@
   border-radius: 0 !important;
   background-color: #161616 !important;
 }
-#urlbar:not([focused]) > #urlbar-background {
+
+#urlbar:not([focused])>#urlbar-background {
   background: transparent !important;
 }

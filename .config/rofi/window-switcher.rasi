@@ -2,7 +2,6 @@
 
 configuration {
   font:                     "JetBrainsMono Nerd Font 8";
-  display-window:           "󰣆 ";
   window-format:            "{c:10} :: {t:24}";
   
   window {
@@ -31,20 +30,25 @@ mainbox {
 }
 
 textbox-custom {
+  font:                     "JetBrainsMono Nerd Font Bold 8";
+  border:                   0 0 2px 0;
+  border-color:             @main-br;
   horizontal-align:         0.5;
-  padding:                  8px 0 0 0;
+  padding:                  8px 0;
   expand:                   false;
   background-color:         @main-bg;
   text-color:               @main-fg;
   expand:                   false;
-  content:                  "Windows";
+  content:                  "󰲋  Task View";
 }
 
 /* List */
 
 listview {
   lines:                    6;
-  cycle:                    false;
+  fixed-height:             false;
+  dynamic:                  true;
+  cycle:                    true;
   padding:                  8px;
   background-color:         inherit;
 }

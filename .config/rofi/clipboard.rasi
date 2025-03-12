@@ -21,13 +21,26 @@ mainbox {
   spacing:                  0;
   background-color:         inherit;
   text-color:               @main-fg;
-  children:                 [ inputbar, listview ];
+  children:                 [ textbox-custom, listview, inputbar ];
+}
+
+textbox-custom {
+  font:                     "JetBrainsMono Nerd Font Bold 8";
+  border:                   0 0 2px 0;
+  border-color:             @main-br;
+  horizontal-align:         0.5;
+  padding:                  8px 0;
+  expand:                   false;
+  background-color:         @main-bg;
+  text-color:               @main-fg;
+  expand:                   false;
+  content:                  "󰅍  Clipboard";
 }
 
 /* Input */
 
 inputbar {
-  margin:                   8px 8px 0 8px;
+  margin:                   8px;
   border-radius:            6px;
   spacing:                  inherit;
   background-color:         @input-bg;
@@ -51,8 +64,10 @@ entry {
 
 listview {
   lines:                    6;
+  fixed-height:             false;
+  dynamic:                  true;
   cycle:                    false;
-  padding:                  8px;
+  padding:                  8px 8px 0;
   background-color:         inherit;
 }
 

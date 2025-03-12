@@ -1,6 +1,8 @@
-# instant prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-$USER.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-$USER.zsh"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # options
@@ -39,11 +41,13 @@ alias e="exit"
 
 # pacman
 alias pfd="pacman -Ss"
+alias pup="sudo pacman -Syu"
 alias pdl="sudo pacman -S"
 alias prm="sudo pacman -Rns"
 
 # yay
 alias yfd="yay -Ss"
+alias yup="yay -Syu"
 alias ydl="yay -S"
 alias yrm="yay -Rns"
 
@@ -52,9 +56,16 @@ alias conf="cd $HOME/.config && ls"
 alias envim="cd $HOME/.config/nvim && nvim"
 alias ewbar="cd $HOME/.config/waybar && nvim"
 
+# scripts
+alias clean="$HOME/cleanup.sh"
+alias server="$HOME/local-server.sh"
+
 # misc
 alias discord="discord --ozone-platform-hint=auto"
 alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'"
+
+# replace man with batman
+eval "$(batman --export-env)"
 
 # In case a command is not found, try to find the package that has it
 function command_not_found_handler {

@@ -31,7 +31,6 @@ FILE_CRITICAL=/tmp/battery-critical
 if [ "$BATTERY_STATE" == "discharging" ]; then
   rm -f $FILE_FULL
 elif [ "$BATTERY_STATE" == "charging" ]; then
-  brightnessctl -r
   rm -f "$FILE_WARNING" "$FILE_CRITICAL"
 fi
 

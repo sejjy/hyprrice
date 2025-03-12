@@ -22,23 +22,26 @@ mainbox {
   spacing:                  0;
   background-color:         inherit;
   text-color:               @main-fg;
-  children:                 [ textbox-custom, message, inputbar ];
+  children:                 [ textbox-custom, inputbar, message ];
 }
 
 textbox-custom {
+  font:                     "JetBrainsMono Nerd Font Bold 8";
+  border:                   0 0 2px 0;
+  border-color:             @main-br;
   horizontal-align:         0.5;
-  padding:                  8px 0 0 0;
+  padding:                  8px 0;
   expand:                   false;
   background-color:         @main-bg;
   text-color:               @main-fg;
   expand:                   false;
-  content:                  "Calculator";
+  content:                  "󰦣  Calculator";
 }
 
 /* Input */
 
 inputbar {
-  margin:                   0 8px 8px 8px;
+  margin:                   8px 8px 0;
   border-radius:            6px;
   spacing:                  inherit;
   background-color:         @input-bg;
@@ -62,6 +65,7 @@ message {
   text-color:               @main-fg;
 }
 textbox {
+  font:                     "JetBrainsMono Nerd Font Bold 10";
   horizontal-align:         1;
   padding:                  6px;
   background-color:         inherit;
