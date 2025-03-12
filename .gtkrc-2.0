@@ -2,7 +2,7 @@
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
 include "/home/sejjy/.gtkrc-2.0.mine"
-gtk-theme-name="Catppuccin-Mocha-Lavender"
+gtk-theme-name="catppuccin-mocha"
 gtk-icon-theme-name="Tela-circle-dracula"
 gtk-font-name="Atkinson Hyperlegible 10"
 gtk-cursor-theme-name="macOS"
