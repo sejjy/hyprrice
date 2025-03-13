@@ -14,15 +14,18 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
-# completion
+# completion (optimized)
 autoload -Uz compinit
-compinit
+zstyle ':completion:*' rehash true
+if [[ -n "$ZSH_COMPDUMP" && -f "$ZSH_COMPDUMP" ]]; then
+  compinit -C  # Use compiled cache if available
+else
+  compinit
+fi
 zstyle :compinstall filename '/home/sejjy/.zshrc'
 
-# theme
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-
-# plugins
+# plugins (lazy-load zsh-autosuggestions)
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # binds
@@ -64,18 +67,22 @@ alias server="$HOME/local-server.sh"
 alias discord="discord --ozone-platform-hint=auto"
 alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'"
 
-# replace man with batman
-eval "$(batman --export-env)"
+# replace man with batman (cached)
+if [[ ! -f "$HOME/.cache/batman_env" ]]; then
+  batman --export-env > "$HOME/.cache/batman_env"
+fi
+source "$HOME/.cache/batman_env"
 
-# In case a command is not found, try to find the package that has it
+# Optimized command-not-found handler
 function command_not_found_handler {
   printf 'zsh: command not found: %s\n' "$1"
-  local purple='\e[1;35m' bright='\e[0;1m' green='\e[1;32m' reset='\e[0m'
+  if ! hash pacman 2>/dev/null; then return 127; fi
   local entries=( ${(f)"$(/usr/bin/pacman -F --machinereadable -- "/usr/bin/$1")"} )
-  if (( ${#entries[@]} )) ; then
+  if (( ${#entries[@]} )); then
+    local purple='\e[1;35m' bright='\e[0;1m' green='\e[1;32m' reset='\e[0m'
     printf "${bright}$1${reset} may be found in the following packages:\n"
     local pkg
-    for entry in "${entries[@]}" ; do
+    for entry in "${entries[@]}"; do
       local fields=( ${(0)entry} )
       if [[ "$pkg" != "${fields[2]}" ]]; then
         printf "${purple}%s/${bright}%s ${green}%s${reset}\n" "${fields[1]}" "${fields[2]}" "${fields[3]}"
@@ -86,6 +93,7 @@ function command_not_found_handler {
   fi
   return 127
 }
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-# configure powerlevel10k
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
