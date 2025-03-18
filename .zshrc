@@ -1,46 +1,53 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# options
+# opts
 setopt autocd
 bindkey -e
+ZLE_RPROMPT_INDENT=0
 
 # history
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
-# completion (optimized)
+# completion
 autoload -Uz compinit
 zstyle ':completion:*' rehash true
 if [[ -n "$ZSH_COMPDUMP" && -f "$ZSH_COMPDUMP" ]]; then
-  compinit -C  # Use compiled cache if available
+  compinit -C  # use cache
 else
   compinit
 fi
 zstyle :compinstall filename '/home/sejjy/.zshrc'
 
-# plugins (lazy-load zsh-autosuggestions)
+# <<--< plugins >-->>
+
+# lazy-load zsh-autosuggestions
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# binds
+# <<--< keybinds >-->>
+
 bindkey "^[[C" autosuggest-accept
 bindkey "\e[C" forward-char
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 bindkey '^H' backward-kill-word
 
+# env
+export EDITOR=nvim
+
 # <<--< aliases >-->>
 
 # shell
+alias reload="source ~/.zshrc"
 alias mkdir="mkdir -p"
 alias c="clear"
 alias e="exit"
+alias ll="ls -lah --color=auto"
 
 # pacman
 alias pfd="pacman -Ss"
@@ -54,18 +61,36 @@ alias yup="yay -Syu"
 alias ydl="yay -S"
 alias yrm="yay -Rns"
 
+# git
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit -m"
+alias gp="git push"
+alias gpl="git pull"
+alias gco="git checkout"
+alias gb="git branch"
+alias gl="git log --oneline --graph --decorate"
+alias gd="git diff"
+alias gcl="git clone"
+alias grh="git reset HEAD"
+alias gst="git stash"
+alias gsta="git stash apply"
+
 # nvim
-alias conf="cd $HOME/.config && ls"
-alias envim="cd $HOME/.config/nvim && nvim"
-alias ewbar="cd $HOME/.config/waybar && nvim"
+alias cfg="cd $HOME/.config && ls -a --color=auto"
+alias nhypr="cd $HOME/.config/hypr && nvim"
+alias nnvim="cd $HOME/.config/nvim && nvim"
+alias nwbar="cd $HOME/.config/waybar && nvim"
 
 # scripts
-alias clean="$HOME/cleanup.sh"
-alias server="$HOME/local-server.sh"
+alias cln="$HOME/cleanup.sh"
+alias srv="$HOME/local-server.sh"
 
 # misc
 alias discord="discord --ozone-platform-hint=auto"
 alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'"
+
+# <<--< external >-->>
 
 # replace man with batman (cached)
 if [[ ! -f "$HOME/.cache/batman_env" ]]; then
@@ -73,7 +98,7 @@ if [[ ! -f "$HOME/.cache/batman_env" ]]; then
 fi
 source "$HOME/.cache/batman_env"
 
-# Optimized command-not-found handler
+# iykyk
 function command_not_found_handler {
   printf 'zsh: command not found: %s\n' "$1"
   if ! hash pacman 2>/dev/null; then return 127; fi
@@ -93,7 +118,6 @@ function command_not_found_handler {
   fi
   return 127
 }
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
