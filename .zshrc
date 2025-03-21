@@ -37,7 +37,14 @@ bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 bindkey '^H' backward-kill-word
 
-# env
+# <<--< env >-->>
+
+# replace man with batman (cached)
+if [[ ! -f "$HOME/.cache/batman_env" ]]; then
+  batman --export-env > "$HOME/.cache/batman_env"
+fi
+source "$HOME/.cache/batman_env"
+
 export EDITOR=nvim
 
 # <<--< aliases >-->>
@@ -47,6 +54,8 @@ alias reload="source ~/.zshrc"
 alias mkdir="mkdir -p"
 alias c="clear"
 alias e="exit"
+alias ls="ls --color=auto"
+alias la="ls -a --color=auto"
 alias ll="ls -lah --color=auto"
 
 # pacman
@@ -77,14 +86,18 @@ alias gst="git stash"
 alias gsta="git stash apply"
 
 # nvim
-alias cfg="cd $HOME/.config && ls -a --color=auto"
-alias nhypr="cd $HOME/.config/hypr && nvim"
 alias nnvim="cd $HOME/.config/nvim && nvim"
-alias nwbar="cd $HOME/.config/waybar && nvim"
+alias nhypr="cd $HOME/.config/hypr && nvim"
+
+# tmux
+alias t="tmux"
+alias tn="tmux new-session"
+alias ta="tmux attach-session"
+alias tls="tmux list-sessions"
 
 # scripts
-alias cln="$HOME/cleanup.sh"
-alias srv="$HOME/local-server.sh"
+alias clean="$HOME/cleanup.sh"
+alias server="$HOME/local-server.sh"
 
 # misc
 alias discord="discord --ozone-platform-hint=auto"
@@ -92,13 +105,6 @@ alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'
 
 # <<--< external >-->>
 
-# replace man with batman (cached)
-if [[ ! -f "$HOME/.cache/batman_env" ]]; then
-  batman --export-env > "$HOME/.cache/batman_env"
-fi
-source "$HOME/.cache/batman_env"
-
-# iykyk
 function command_not_found_handler {
   printf 'zsh: command not found: %s\n' "$1"
   if ! hash pacman 2>/dev/null; then return 127; fi
