@@ -8,25 +8,18 @@
 
 /* Navbar */
 
-#home-button,
-/* home */
-#reload-button,
-/* reload */
-#preferences-button,
-/* settings */
-.titlebar-buttonbox-container,
-/* min, max, close */
+#home-button,                           /* home */
+#reload-button,                         /* reload */
+#preferences-button,                    /* settings */
+.titlebar-buttonbox-container,          /* min, max, close */
 #zen-expand-sidebar-button,
 #zen-sidepanel-button,
 
 /* URL Bar */
 
-#star-button-box,
-/* bookmark */
-#reader-mode-button,
-/* reader mode */
-#blocked-permissions-container,
-/* blocked permissions */
+#star-button-box,                       /* bookmark */
+#reader-mode-button,                    /* reader mode */
+#blocked-permissions-container,         /* blocked permissions */
 #userContext-indicator,
 
 /* Sidebar */
@@ -97,6 +90,10 @@
 
 #zen-profile-button {
   order: 2 !important;
+}
+
+#zen-sidebar-bottom-buttons {
+  margin-bottom: 4px !important;
 }
 
 /* active tab background color */
