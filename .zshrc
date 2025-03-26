@@ -55,20 +55,24 @@ alias mkdir="mkdir -p"
 alias c="clear"
 alias e="exit"
 alias ls="ls --color=auto"
-alias la="ls -a --color=auto"
-alias ll="ls -lah --color=auto"
+alias la="ls --all --color=auto"
+alias ll="ls -ahl --color=auto"
+alias fdf="fd --exclude "timeshift" --hidden -i --type f"
+alias fdd="fd --exclude "timeshift" --hidden -i --type d"
 
 # pacman
 alias pfd="pacman -Ss"
 alias pup="sudo pacman -Syu"
 alias pdl="sudo pacman -S"
 alias prm="sudo pacman -Rns"
+alias pls="pacman -Q"
 
 # yay
 alias yfd="yay -Ss"
 alias yup="yay -Syu"
 alias ydl="yay -S"
 alias yrm="yay -Rns"
+alias yls="yay -Qm"
 
 # git
 alias gs="git status"
