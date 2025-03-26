@@ -57,8 +57,8 @@ alias e="exit"
 alias ls="ls --color=auto"
 alias la="ls --all --color=auto"
 alias ll="ls -ahl --color=auto"
-alias fdf="fd --exclude "timeshift" --hidden -i --type f"
-alias fdd="fd --exclude "timeshift" --hidden -i --type d"
+alias fdf="fd --exclude "timeshift/" --hidden --type f"
+alias fdd="fd --exclude "timeshift/" --hidden --type d"
 
 # pacman
 alias pfd="pacman -Ss"
