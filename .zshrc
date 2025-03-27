@@ -91,8 +91,10 @@ alias gst="git stash"
 alias gsta="git stash apply"
 
 # nvim
-alias nnvim="cd $HOME/.config/nvim && nvim"
-alias nhypr="cd $HOME/.config/hypr && nvim"
+alias n="nvim"
+alias v="vim"
+alias nn="cd $HOME/.config/nvim && nvim"
+alias nh="cd $HOME/.config/hypr && nvim"
 
 # tmux
 alias t="tmux"
@@ -102,11 +104,9 @@ alias tls="tmux list-sessions"
 alias tk="tmux kill-session"
 alias tks="tmux kill-server"
 
-# scripts
-alias clean="$HOME/cleanup.sh"
-alias server="$HOME/local-server.sh"
-
 # misc
+alias clean="$HOME/.config/hypr/scripts/cleanup.sh"
+alias server="$HOME/.config/hypr/scripts/local_server.sh"
 alias discord="discord --ozone-platform-hint=auto"
 alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'"
 

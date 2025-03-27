@@ -2,11 +2,11 @@
 
 # variables
 TEXT_COLOR="#cdd6f4"
-SPOTIFY_ICON="<span color='#a6e3a1'>󰓇  </span>"
-FIREFOX_ICON="<span color='#f38ba8'>󰗃  </span>"
-PAUSE_ICON="<span color='#b4befe'> 󰏤   </span>"
+SPOTIFY_ICON="<span color='#a6e3a1'>󰓇 </span>"
+FIREFOX_ICON="<span color='#f38ba8'>󰗃 </span>"
+PAUSE_ICON="<span color='#b4befe'>  󰏤 </span>"
+# PAUSE_ICON="<span color='#b4befe'>\u200A\u200A󰏤\u2009\u2009</span>"
 # this uses hair spaces and thin spaces
-# \u200A󰏤 \u2009\u2009\u200A
 
 # function to escape ampersand (&)
 escape_markup() {
@@ -52,9 +52,9 @@ format_output() {
 
   # track info
   if [[ -n "$artist" && -n "$title" ]]; then
-    text="${icon}<span color='${TEXT_COLOR}'><b>${title}</b> — ${artist}</span>"
+    text="${icon}  <span color='${TEXT_COLOR}'>${title} — ${artist}</span>"
   elif [[ -n "$title" ]]; then
-    text="${icon}<span color='${TEXT_COLOR}'>${title}</span>"
+    text="${icon}  <span color='${TEXT_COLOR}'>${title}</span>"
   else
     text=""
   fi

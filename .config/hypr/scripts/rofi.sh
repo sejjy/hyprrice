@@ -9,7 +9,7 @@ case "$1" in
   pkill -x rofi || rofi -show window -config "$HOME/.config/rofi/window-switcher.rasi"
   ;;
 "clip")
-  pkill -x rofi || cliphist list | rofi -dmenu -p " " -display-columns 2 -config "$HOME/.config/rofi/clipboard.rasi" | cliphist decode | wl-copy
+  pkill -x rofi || cliphist list | rofi -dmenu -p " " -display-columns 2 -config "$HOME/.config/rofi/clipboard.rasi" | cliphist decode | wl-copy
   ;;
 "calc")
   pkill -x rofi || rofi -show calc -modi calc -no-show-match -no-sort -no-history -lines 0 -terse -config ".config/rofi/calculator.rasi" -hint-welcome "" -hint-result "" -kb-accept-entry ''
