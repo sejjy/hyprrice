@@ -22,10 +22,11 @@ sudo paccache -ruk0 2>/dev/null # Remove all for uninstalled
 # Prune old AUR package cache
 echo -e "\n\033[1;34mPruning old AUR package cache...\033[0m"
 if [[ -d "$YAY_CACHE_DIR" ]]; then
-  find "$YAY_CACHE_DIR" -mindepth 1 -maxdepth 1 -type d | while read -r pkg_dir; do
-    find "$pkg_dir" -type f \( -name '*.pkg.tar.*' -o -name '*.tar.bz2' \) -printf '%T@ %p\n' |
-      sort -rn | tail -n +3 | cut -d' ' -f2- | xargs -r rm -v
-  done
+  # find "$YAY_CACHE_DIR" -mindepth 1 -maxdepth 1 -type d | while read -r pkg_dir; do
+  #   find "$pkg_dir" -type f \( -name '*.pkg.tar.*' -o -name '*.tar.bz2' \) -printf '%T@ %p\n' |
+  #     sort -rn | tail -n +3 | cut -d' ' -f2- | xargs -r rm -v
+  # done
+  paccache -rk2 --cachedir "$YAY_CACHE_DIR"
 else
   echo -e "\033[1;31mYay cache directory not found.\033[0m"
 fi

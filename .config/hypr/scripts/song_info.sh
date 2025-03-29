@@ -50,10 +50,19 @@ format_output() {
     icon=""
   fi
 
+  # truncate text
+  text="${title} — ${artist}"
+  if [[ ${#text} -gt 40 ]]; then
+    text="${text:0:$((40 - 3))}..."
+  fi
+
   # track info
   if [[ -n "$artist" && -n "$title" ]]; then
-    text="${icon}  <span color='${TEXT_COLOR}'>${title} — ${artist}</span>"
+    text="${icon}  <span color='${TEXT_COLOR}'>${text}</span>"
   elif [[ -n "$title" ]]; then
+    if [[ ${#title} -gt 40 ]]; then
+      title="${title:0:$((40 - 3))}..."
+    fi
     text="${icon}  <span color='${TEXT_COLOR}'>${title}</span>"
   else
     text=""
