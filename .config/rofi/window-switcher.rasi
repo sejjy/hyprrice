@@ -1,4 +1,6 @@
-/* App launcher, window switcher, file browser */
+/* Window switcher */
+
+@theme "~/.config/rofi/theme.rasi"
 
 configuration {
   font:                     "JetBrainsMono Nerd Font 8";
@@ -9,13 +11,11 @@ configuration {
   }
 }
 
-@theme "~/.config/rofi/theme.rasi"
-
 /* Window */
 
 window {
   width:                    250px;
-  border:                   2px;
+  border:                   3px;
   border-radius:            10px;
   border-color:             @main-br;
   background-color:         @main-bg;
@@ -24,20 +24,18 @@ window {
 
 mainbox {
   spacing:                  0;
-  background-color:         inherit;
+  background-color:         @main-br;
   text-color:               @main-fg;
   children:                 [ textbox-custom, listview ];
 }
 
 textbox-custom {
   font:                     "JetBrainsMono Nerd Font Bold 8";
-  border:                   0 0 2px 0;
-  border-color:             @main-br;
   horizontal-align:         0.5;
-  padding:                  8px 0;
+  padding:                  1px 0;
   expand:                   false;
-  background-color:         @main-bg;
-  text-color:               @main-fg;
+  background-color:         @select-bg;
+  text-color:               @select-fg;
   expand:                   false;
   content:                  "󰲋  Task View";
 }
@@ -45,12 +43,16 @@ textbox-custom {
 /* List */
 
 listview {
+  border:                   2px 0 0 0;
+  border-radius:            8px;
+  border-color:             @main-br;
   lines:                    6;
   fixed-height:             false;
-  dynamic:                  true;
-  cycle:                    true;
-  padding:                  8px;
-  background-color:         inherit;
+  dynamic:                  false;
+  cycle:                    false;
+  margin:                   0 0 -2px;
+  padding:                  6px 6px 8px;
+  background-color:         @main-bg;
 }
 
 element {

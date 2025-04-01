@@ -89,6 +89,7 @@
 
   "hyprland/window": {
     "format": "{}",
+    "tooltip": false,
     "min-length": 5,
 
     "rewrite": {
@@ -100,6 +101,9 @@
       "~": "  Terminal",
       "zsh": "  Terminal",
       "kitty": "  Terminal",
+
+      "tmux(.*)": 
+        "<span foreground='#a6e3a1'> </span> Tmux",
 
       // Browser
 
@@ -223,8 +227,8 @@
     "format": "{icon}",
 
     "format-icons": {
-      "activated": "󱑎 ",
-      "deactivated": "󱑂 "
+      "activated": "󰈈 ",
+      "deactivated": "󰈉 "
     },
 
     "tooltip-format-activated": "Presentation Mode",
