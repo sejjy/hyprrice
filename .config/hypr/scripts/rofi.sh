@@ -17,9 +17,6 @@ case "$1" in
 "emoji")
   pkill -x rofi || rofi -modi emoji -show emoji -kb-secondary-copy "" -kb-custom-1 Ctrl+c -kb-accept-alt "" -config "$HOME/.config/rofi/emoji-picker.rasi" -emoji-format "<span font='12'>{emoji}</span>"
   ;;
-"power")
-  pkill -x rofi || "$HOME/.config/waybar/scripts/power-menu.sh"
-  ;;
 *)
   echo "Invalid argument"
   exit 1

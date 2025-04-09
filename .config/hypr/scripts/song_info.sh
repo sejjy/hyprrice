@@ -16,7 +16,7 @@ escape_markup() {
 }
 
 # list active players
-players=$(playerctl --list-all)
+players=$(playerctl --list-all 2>/dev/null)
 
 format_output() {
   local player="$1"

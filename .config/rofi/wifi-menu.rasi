@@ -35,7 +35,7 @@ textbox-custom {
   background-color:         @select-bg;
   text-color:               @select-fg;
   expand:                   false;
-  content:                  "󰖩  Wi-Fi";
+  content:                  "󰤥  Wi-Fi";
 }
 
 /* Input */
