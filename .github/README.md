@@ -16,7 +16,4 @@
 
 ## Upstream
 
-[sejjy / mechabar](https://github.com/sejjy/mechabar)<br>
-[sejjy / zenplified](https://github.com/sejjy/zenplified)<br>
-[sejjy / hypr](https://github.com/sejjy/hypr)<br>
-[sejjy / rofi](https://github.com/sejjy/rofi)<br>
+[waybar](https://github.com/sejjy/mechabar) · [zen](https://github.com/sejjy/zenplified) · [hyprland](https://github.com/sejjy/hypr) · [rofi](https://github.com/sejjy/rofi)
