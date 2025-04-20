@@ -15,13 +15,13 @@ SAVEHIST=1000
 
 # completion
 autoload -Uz compinit
-zstyle ':completion:*' rehash true
+zstyle ":completion:*" rehash true
 if [[ -n "$ZSH_COMPDUMP" && -f "$ZSH_COMPDUMP" ]]; then
   compinit -C  # use cache
 else
   compinit
 fi
-zstyle :compinstall filename '/home/sejjy/.zshrc'
+zstyle :compinstall filename "/home/sejjy/.zshrc"
 
 # <<--< plugins >-->>
 
@@ -35,7 +35,7 @@ bindkey "^[[C" autosuggest-accept
 bindkey "\e[C" forward-char
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
-bindkey '^H' backward-kill-word
+bindkey "^H" backward-kill-word
 
 # <<--< env >-->>
 
@@ -52,11 +52,13 @@ export EDITOR=nvim
 # shell
 alias reload="source ~/.zshrc"
 alias mkdir="mkdir -p"
+alias rm="rm -i"
 alias c="clear"
 alias e="exit"
 alias ls="ls --color=auto"
 alias la="ls --all --color=auto"
 alias ll="ls -ahl --color=auto"
+alias grep="grep --color=auto"
 alias fdf="fd --exclude "timeshift/" --hidden --type f"
 alias fdd="fd --exclude "timeshift/" --hidden --type d"
 
@@ -84,6 +86,7 @@ alias gco="git checkout"
 alias gb="git branch"
 alias gl="git log --oneline --graph --decorate"
 alias gd="git diff | bat"
+alias gr="git restore"
 alias gdh="git diff HEAD | bat"
 alias gcl="git clone"
 alias grh="git reset HEAD"
@@ -91,8 +94,8 @@ alias gst="git stash"
 alias gsta="git stash apply"
 
 # nvim
-alias n="nvim"
 alias v="vim"
+alias n="nvim"
 alias nn="cd $HOME/.config/nvim && nvim"
 alias nh="cd $HOME/.config/hypr && nvim"
 alias nw="cd $HOME/.config/waybar && nvim"
@@ -105,6 +108,22 @@ alias tls="tmux list-sessions"
 alias tk="tmux kill-session"
 alias tks="tmux kill-server"
 
+# docker
+alias dr="docker run"
+alias dp="docker ps"
+alias dpa="docker ps --all"
+alias dim="docker images"
+alias ds="docker start"
+alias dst="docker stop"
+
+# ollama
+alias ol="ollama list"
+alias op="ollama ps"
+alias ord="ollama run deepseek-r1:1.5b"
+alias orq="ollama run qwen2.5-coder:3b"
+alias osd="ollama stop deepseek-r1:1.5b"
+alias osq="ollama stop qwen2.5-coder:3b"
+
 # misc
 alias clean="$HOME/.config/hypr/scripts/cleanup.sh"
 alias server="$HOME/.config/hypr/scripts/local_server.sh"
@@ -114,11 +133,11 @@ alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'
 # <<--< external >-->>
 
 function command_not_found_handler {
-  printf 'zsh: command not found: %s\n' "$1"
+  printf "zsh: command not found: %s\n" "$1"
   if ! hash pacman 2>/dev/null; then return 127; fi
   local entries=( ${(f)"$(/usr/bin/pacman -F --machinereadable -- "/usr/bin/$1")"} )
   if (( ${#entries[@]} )); then
-    local purple='\e[1;35m' bright='\e[0;1m' green='\e[1;32m' reset='\e[0m'
+    local purple="\e[1;35m" bright="\e[0;1m" green="\e[1;32m" reset="\e[0m"
     printf "${bright}$1${reset} may be found in the following packages:\n"
     local pkg
     for entry in "${entries[@]}"; do
@@ -126,7 +145,7 @@ function command_not_found_handler {
       if [[ "$pkg" != "${fields[2]}" ]]; then
         printf "${purple}%s/${bright}%s ${green}%s${reset}\n" "${fields[1]}" "${fields[2]}" "${fields[3]}"
       fi
-      printf '    /%s\n' "${fields[4]}"
+      printf "    /%s\n" "${fields[4]}"
       pkg="${fields[2]}"
     done
   fi
