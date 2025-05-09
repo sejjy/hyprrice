@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🍚 hyprrice
+## 🍚 hyprrice
 
 | ![busy-workspace](assets/busy-workspace.png) |
 | :------------------------------------------: |
@@ -14,6 +14,8 @@
 </div>  
 <br />
 
-## Upstream
+#
+
+### Upstream
 
 [waybar](https://github.com/sejjy/mechabar) · [zen](https://github.com/sejjy/zenplified) · [hyprland](https://github.com/sejjy/hypr) · [rofi](https://github.com/sejjy/rofi)
