@@ -1,137 +1,168 @@
-# instant prompt
+# =================
+#  Prompt
+# =================
+# enable powerlevel10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# opts
-setopt autocd
-bindkey -e
-ZLE_RPROMPT_INDENT=0
+ZLE_RPROMPT_INDENT=0 # remove right prompt indent
 
+# =================
+#  Configuration
+# =================
 # history
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTFILE="${HOME}/.zsh_history"
+HISTSIZE=5000
+SAVEHIST=5000
+setopt append_history    # append to HISTFILE
+setopt extended_history  # save timestamp and duration
+setopt hist_ignore_dups  # ignore duplicate commands
+setopt hist_ignore_space # ignore commands starting with space
+setopt share_history     # share history between sessions
+
+# navigation
+setopt auto_cd           # change directories without cd
+setopt auto_pushd        # make cd push to directory stack
+setopt pushd_ignore_dups # don't push duplicates to directory stack
 
 # completion
 autoload -Uz compinit
-zstyle ":completion:*" rehash true
-if [[ -n "$ZSH_COMPDUMP" && -f "$ZSH_COMPDUMP" ]]; then
-  compinit -C  # use cache
+zstyle ':completion:*' menu select
+zstyle ':completion:*' rehash true
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%B%F{blue}%d%f%b'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# load completion (use cache if available)
+if [[ -n "${ZSH_COMPDUMP}" && -f "${ZSH_COMPDUMP}" ]]; then
+  compinit -C
 else
   compinit
 fi
-zstyle :compinstall filename "/home/sejjy/.zshrc"
 
-# <<--< plugins >-->>
+# =================
+#  Key Bindings
+# =================
+bindkey -e # emacs key bindings
 
-# lazy-load zsh-autosuggestions
+# custom key bindings
+bindkey '^[[C' autosuggest-accept # right
+bindkey "\e[C" forward-char       # left
+bindkey '^[[1;5D' backward-word   # ctrl + left
+bindkey '^[[1;5C' forward-word    # ctrl + right
+bindkey '^H' backward-kill-word   # ctrl + backspace
+
+# =================
+#  Environment
+# =================
+export EDITOR='nvim'
+export VISUAL='nvim'
+
+# batman
+if command -v batman &>/dev/null; then
+  if [[ ! -f "${HOME}/.cache/batman_env" ]]; then
+    batman --export-env > "${HOME}/.cache/batman_env"
+  fi
+  source "${HOME}/.cache/batman_env"
+fi
+
+# =================
+#  Plugins
+# =================
+# autosuggestions
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# <<--< keybinds >-->>
+# theme
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-bindkey "^[[C" autosuggest-accept
-bindkey "\e[C" forward-char
-bindkey "^[[1;5D" backward-word
-bindkey "^[[1;5C" forward-word
-bindkey "^H" backward-kill-word
-
-# <<--< env >-->>
-
-# replace man with batman (cached)
-if [[ ! -f "$HOME/.cache/batman_env" ]]; then
-  batman --export-env > "$HOME/.cache/batman_env"
-fi
-source "$HOME/.cache/batman_env"
-
-export EDITOR=nvim
-
-# <<--< aliases >-->>
-
-# shell
-alias reload="source ~/.zshrc"
-alias mkdir="mkdir -p"
-alias rm="rm -i"
-alias c="clear"
-alias e="exit"
-alias ls="ls --color=auto"
-alias la="ls --all --color=auto"
-alias ll="ls -ahl --color=auto"
-alias grep="grep --color=auto"
-alias fdf="fd --exclude "timeshift/" --hidden --type f"
-alias fdd="fd --exclude "timeshift/" --hidden --type d"
+# =================
+#  Aliases
+# =================
+# general
+alias c='clear'
+alias e='exit'
+alias rel='exec zsh' # source ~/.zshrc
+alias mkdir='mkdir -p'
+alias rm='rm -i'
+alias ls='ls --color=auto --group-directories-first'
+alias la='ls -A'
+alias ll='ls -alh'
+alias grep='grep --color=auto'
+alias fd='fd --hidden --exclude timeshift'
+alias fdf='fd --type f'
+alias fdd='fd --type d'
 
 # pacman
-alias pfd="pacman -Ss"
-alias pup="sudo pacman -Syu"
-alias pdl="sudo pacman -S"
-alias prm="sudo pacman -Rns"
-alias pls="pacman -Q"
+alias pup='sudo pacman -Syu'
+alias pfd='pacman -Ss'
+alias pdl='sudo pacman -S'
+alias prm='sudo pacman -Rns'
+alias pls='pacman -Q'
 
-# yay
-alias yfd="yay -Ss"
-alias yup="yay -Syu"
-alias ydl="yay -S"
-alias yrm="yay -Rns"
-alias yls="yay -Qm"
+# AUR
+alias yup='yay -Syu'
+alias yfd='yay -Ss'
+alias ydl='yay -S'
+alias yrm='yay -Rns'
+alias yls='yay -Qm'
 
 # git
-alias gs="git status"
-alias ga="git add"
-alias gc="git commit -m"
-alias gp="git push"
-alias gpl="git pull"
-alias gco="git checkout"
-alias gb="git branch"
-alias gl="git log --oneline --graph --decorate"
-alias gd="git diff | bat"
-alias gr="git restore"
-alias gdh="git diff HEAD | bat"
-alias gcl="git clone"
-alias grh="git reset HEAD"
-alias gst="git stash"
-alias gsta="git stash apply"
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit -m'
+alias gp='git push'
+alias gpl='git pull'
+alias gco='git checkout'
+alias gb='git branch'
+alias gd='git diff | bat'
+alias gl='git log --oneline --graph --decorate'
+alias gr='git restore'
+alias gdh='git diff HEAD | bat'
+alias gcl='git clone'
+alias grh='git reset HEAD'
+alias gst='git stash'
+alias gsta='git stash apply'
 
 # nvim
-alias v="vim"
-alias n="nvim"
+alias v='vim'
+alias n='nvim'
 alias nn="cd $HOME/.config/nvim && nvim"
 alias nh="cd $HOME/.config/hypr && nvim"
 alias nw="cd $HOME/.config/waybar && nvim"
 
-# tmux
-alias t="tmux"
-alias tn="tmux new-session"
-alias ta="tmux attach-session"
-alias tls="tmux list-sessions"
-alias tk="tmux kill-session"
-alias tks="tmux kill-server"
-
 # docker
-alias dr="docker run"
-alias dp="docker ps"
-alias dpa="docker ps --all"
-alias dim="docker images"
-alias ds="docker start"
-alias dst="docker stop"
+alias d='docker'
+alias dr='docker run'
+alias dp='docker ps'
+alias dpa='docker ps --all'
+alias dim='docker images'
+alias drm='docker rm'
+alias drmi='docker rmi'
+alias ds='docker start'
+alias dst='docker stop'
+alias dso='docker start open-webui'
+alias dsto='docker stop open-webui'
 
 # ollama
-alias ol="ollama list"
-alias op="ollama ps"
-alias ord="ollama run deepseek-r1:1.5b"
-alias orq="ollama run qwen2.5-coder:3b"
-alias osd="ollama stop deepseek-r1:1.5b"
-alias osq="ollama stop qwen2.5-coder:3b"
+alias o='ollama'
+alias oc='ollama create'
+alias ol='ollama list'
+alias op='ollama ps'
+alias orm='ollama rm'
+alias or='ollama run'
+alias os='ollama stop'
+alias ord='ollama run deepseek-r1:1.5b'
+alias orq='ollama run qwen2.5-coder:3b'
+alias osd='ollama stop deepseek-r1:1.5b'
+alias osq='ollama stop qwen2.5-coder:3b'
 
-# misc
-alias clean="$HOME/.config/hypr/scripts/cleanup.sh"
-alias server="$HOME/.config/hypr/scripts/local_server.sh"
-alias discord="discord --ozone-platform-hint=auto"
-alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'"
-
-# <<--< external >-->>
-
+# =================
+#  Custom
+# =================
 function command_not_found_handler {
   printf "zsh: command not found: %s\n" "$1"
   if ! hash pacman 2>/dev/null; then return 127; fi
@@ -152,5 +183,11 @@ function command_not_found_handler {
   return 127
 }
 
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# =================
+#  Local
+# =================
+alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'"
+alias ytd="${HOME}/.config/hypr/scripts/yt_dlp.sh"
+alias clean="${HOME}/.config/hypr/scripts/cleanup.sh"
+alias server="${HOME}/.config/hypr/scripts/local_server.sh"
+alias discord="discord --ozone-platform-hint=auto"
