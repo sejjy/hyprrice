@@ -54,20 +54,6 @@ bindkey '^[[1;5C' forward-word    # ctrl + right
 bindkey '^H' backward-kill-word   # ctrl + backspace
 
 # =================
-#  Environment
-# =================
-export EDITOR='nvim'
-export VISUAL='nvim'
-
-# batman
-if command -v batman &>/dev/null; then
-  if [[ ! -f "${HOME}/.cache/batman_env" ]]; then
-    batman --export-env > "${HOME}/.cache/batman_env"
-  fi
-  source "${HOME}/.cache/batman_env"
-fi
-
-# =================
 #  Plugins
 # =================
 # autosuggestions
@@ -84,7 +70,7 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 # general
 alias c='clear'
 alias e='exit'
-alias rel='exec zsh' # source ~/.zshrc
+alias reload='exec zsh' # source ~/.zshrc
 alias mkdir='mkdir -p'
 alias rm='rm -i'
 alias ls='ls --color=auto --group-directories-first'
@@ -133,6 +119,14 @@ alias n='nvim'
 alias nn="cd $HOME/.config/nvim && nvim"
 alias nh="cd $HOME/.config/hypr && nvim"
 alias nw="cd $HOME/.config/waybar && nvim"
+
+# tmux
+alias t="tmux"
+alias tn="tmux new-session"
+alias ta="tmux attach-session"
+alias tls="tmux list-sessions"
+alias tk="tmux kill-session"
+alias tks="tmux kill-server"
 
 # docker
 alias d='docker'
@@ -191,3 +185,19 @@ alias ytd="${HOME}/.config/hypr/scripts/yt_dlp.sh"
 alias clean="${HOME}/.config/hypr/scripts/cleanup.sh"
 alias server="${HOME}/.config/hypr/scripts/local_server.sh"
 alias discord="discord --ozone-platform-hint=auto"
+
+# =================
+#  Environment
+# =================
+# batman
+if command -v batman &>/dev/null; then
+  if [[ ! -f "${HOME}/.cache/batman_env" ]]; then
+    batman --export-env > "${HOME}/.cache/batman_env"
+  fi
+  source "${HOME}/.cache/batman_env"
+fi
+
+export EDITOR='nvim'
+export VISUAL='nvim'
+export PATH="/home/sejjy/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/sejjy/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
