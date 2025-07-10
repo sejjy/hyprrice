@@ -4,7 +4,7 @@ grn="\033[1;32m\033[0m"
 red="\033[1;31m\033[0m"
 gry="\033[1;30m\033[0m"
 
-echo # newline
+echo
 echo -e "1. ${grn} start"
 echo -e "2. ${red} stop"
 echo -e "3. ${gry} status\n"
@@ -14,11 +14,11 @@ while true; do
 
   case $option in
   1)
-    # Apache (httpd.service)
+    # apache (httpd.service)
     sudo mkdir -p /run/httpd
     sudo chown http:http /run/httpd
 
-    # MariaDB (mariadb.service)
+    # mariadb (mariadb.service)
     sudo mkdir -p /run/mysqld
     sudo chown mysql:mysql /run/mysqld
     sudo chmod 755 /run/mysqld
