@@ -1,49 +1,58 @@
 /*
   zenplified - An ultra-minimal Zen Browser UI configuration
-  Author: Jesse Mirabel (sejjy)
-  GitHub: https://github.com/sejjy/zenplified
+  Author: https://github.com/sejjy
+
+  Created: December 06, 2024
+  Version: Mozilla Zen 1.0.1-a.22
+
+  Updated: July 14, 2025
+  Version: Mozilla Zen 1.14.4b
 */
 
-/* Hide elements */
+/* ────────────────────────────────────────────────────────┤ HIDE elements ├───
+*/
 
-/* Navbar */
+/* ──────────────────────────────────────────────────────────────── navbar ────
+*/
 
-#home-button,                           /* home */
-#reload-button,                         /* reload */
-#preferences-button,                    /* settings */
-.titlebar-buttonbox-container,          /* min, max, close */
-#zen-expand-sidebar-button,
+#home-button,
+#preferences-button,
+#reload-button,
 #zen-sidepanel-button,
+#zen-expand-sidebar-button,
+.titlebar-buttonbox-container,  /* min, max, close */
 
-/* URL bar */
+/* ─────────────────────────────────────────────────────────────── URL bar ────
+*/
 
-#star-button-box,                       /* bookmark */
-#reader-mode-button,                    /* reader mode */
-#blocked-permissions-container,         /* blocked permissions */
+#blocked-permissions-container, /* blocked permissions */
+#reader-mode-button,            /* reader mode */
+#star-button-box,               /* bookmark */
 #userContext-indicator,
 
-/* Sidebar */
+/* ─────────────────────────────────────────────────────────────── sidebar ────
+*/
 
-#tabs-newtab-button,
-/* '+ New Tab' */
 #tabbrowser-arrowscrollbox-periphery,
-/* horizontal divider */
-/* #zen-current-workspace-indicator-container, /* workspace icon */
+#tabs-newtab-button,
 
-/* Tab: sound icon */
 .tab-icon-overlay {
+  /* tab: sound icon */
   display: none !important;
 }
 
-/* Style elements */
+/* ───────────────────────────────────────────────────────┤ STYLE elements ├───
+*/
 
-/* Navbar */
+/* ──────────────────────────────────────────────────────────────── navbar ────
+*/
 
 #back-button {
   padding-left: 8px !important;
 }
 
-/* URL bar */
+/* ─────────────────────────────────────────────────────────────── URL bar ────
+*/
 
 /* reduce width */
 #urlbar {
@@ -69,7 +78,8 @@
   order: 3 !important;
 }
 
-/* Sidebar */
+/* ─────────────────────────────────────────────────────────────── sidebar ────
+*/
 
 /* hide workspace label */
 #zen-current-workspace-indicator {
@@ -105,7 +115,8 @@
 
 /* only show close button (x) on hover */
 #tabbrowser-tabs {
-  .tabbrowser-tab:not([pinned]):is([visuallyselected]):not(:hover) .tab-close-button {
+  .tabbrowser-tab:not([pinned]):is([visuallyselected]):not(:hover)
+    .tab-close-button {
     display: none !important;
   }
 }
@@ -114,7 +125,8 @@
   display: none !important;
 }
 
-/* Page */
+/* ────────────────────────────────────────────────────────────────── page ────
+*/
 
 /* remove spaces around the page in compact mode */
 @media (-moz-bool-pref: "zen.view.compact") {
@@ -129,7 +141,8 @@
 }
 
 /* active page border in split view */
-#tabbrowser-tabpanels[zen-split-view="true"] .browserSidebarContainer.deck-selected {
+#tabbrowser-tabpanels[zen-split-view="true"]
+  .browserSidebarContainer.deck-selected {
   outline: var(--zen-colors-border) !important;
 }
 
@@ -146,12 +159,13 @@
   background: var(--zen-colors-tertiary) !important;
 }
 
-/* version: Mozilla Zen 1.7b */
-/* 01-18-2025 */
+/*
+  Version: Mozilla Zen 1.7b
+  Updated: January 18, 2025
+*/
 
 @-moz-document url-prefix("chrome:") {
-
-  /* Reduce height */
+  /* reduce height */
   @media (-moz-bool-pref: "zen.view.compact") and (-moz-bool-pref: "zen.view.compact.hide-tabbar") {
     #navigator-toolbox {
       margin: auto !important;
@@ -183,21 +197,23 @@
   background-color: #161616 !important;
 }
 
-#urlbar:not([focused])>#urlbar-background {
+#urlbar:not([focused]) > #urlbar-background {
   background: transparent !important;
 }
 
-/* bring back the context icons */
-/* source: https://github.com/SivanTechDev */
 /*
-/* version: Mozilla Zen 1.13b */
-/* 06-16-2025 */
+  Bring back the context icons
+  Author: https://github.com/SivanTechDev
+
+  Updated: June 16 ,2025
+  Version: Mozilla Zen 1.13b
+*/
 
 :root {
   --zen-contextmenu-menuitem-padding-inline: 6px;
-  --zen-contextmenu-menuicon-margin-inline: 12px;       /* For standard icons */
-  --zen-contextmenu-menuicon-margin-small-inline: 6px;  /* For .menu-iconic-text */
-  --zen-contextmenu-menuitem-margin: 0 2px;             /* 0px to 0 */
+  --zen-contextmenu-menuicon-margin-inline: 48px; /* For standard icons */
+  --zen-contextmenu-menuicon-margin-small-inline: 6px; /* For .menu-iconic-text */
+  --zen-contextmenu-menuitem-margin: 0 2px; /* 0px to 0 */
 }
 
 #context_zenSplitTabs {
@@ -221,7 +237,7 @@
   --menu-image: url("chrome://browser/skin/zen-icons/edit-theme.svg") !important;
 }
 
-/* Context menu icons */
+/* Context Menu Icons */
 
 #context-video-pictureinpicture:not([checked="true"]) .menu-iconic-icon {
   list-style-image: url("chrome://browser/skin/zen-icons/media-pip.svg") !important;
@@ -638,7 +654,7 @@ menuitem[id="placesContext_new:separator"] {
 }
 
 :not(:not(menubar) > menu, #ContentSelectDropdown)
-  > menupopup
+  > menupopup:not(#toolbar-context-menu)
   > menuitem:not(
     .menuitem-iconic,
     [type="checkbox"],
@@ -648,7 +664,7 @@ menuitem[id="placesContext_new:separator"] {
     .unified-nav-current
   ),
 :not(:not(menubar) > menu, #ContentSelectDropdown)
-  > menupopup
+  > menupopup:not(#toolbar-context-menu)
   > menu:not(
     .menu-iconic,
     [type="checkbox"],
@@ -697,14 +713,18 @@ menupopup > menuitem[type="checkbox"] .menu-iconic-left {
   }
 }
 
-/* shrink compact sidebar */
-/* source: https://github.com/Ciuriya */
 /*
-/* version: Mozilla Zen 1.13.1b */
-/* 06-17-2025 */
+  Shrink compact sidebar
+  Author: https://github.com/Ciuriya
+
+  Updated: June 17, 2025
+  Version: Mozilla Zen 1.13.1b
+*/
 
 @-moz-document url-prefix("chrome:") {
-  :root[zen-compact-mode='true']:not([customizing]):not([inDOMFullscreen='true']) {
+  :root[zen-compact-mode="true"]:not([customizing]):not(
+      [inDOMFullscreen="true"]
+    ) {
     @media (-moz-bool-pref: "zen.view.compact.hide-tabbar") or (-moz-bool-pref: "zen.view.use-single-toolbar") {
       #navigator-toolbox {
         --zen-toolbox-max-width: 66px !important;
@@ -712,18 +732,22 @@ menupopup > menuitem[type="checkbox"] .menu-iconic-left {
     }
   }
 
-  :root:not([zen-sidebar-expanded='true']) {
-    --zen-toolbox-max-width: calc(36px + var(--zen-toolbox-padding) * 2) !important;
+  :root:not([zen-sidebar-expanded="true"]) {
+    --zen-toolbox-max-width: calc(
+      36px + var(--zen-toolbox-padding) * 2
+    ) !important;
     --tab-collapsed-background-width: 36px !important;
-    --tab-collapsed-width: calc(var(--tab-collapsed-background-width) + 2 * var(--tab-inner-inline-margin)) !important;
+    --tab-collapsed-width: calc(
+      var(--tab-collapsed-background-width) + 2 * var(--tab-inner-inline-margin)
+    ) !important;
   }
 
-  #navigator-toolbox:not([zen-sidebar-expanded='true']) {
+  #navigator-toolbox:not([zen-sidebar-expanded="true"]) {
     max-width: var(--zen-toolbox-max-width) !important;
     min-width: var(--zen-toolbox-max-width) !important;
 
     @media (-moz-bool-pref: "mod.shrinkcompactsidebar.align-sidebar-top-buttons-vertically") {
-      & #zen-sidebar-top-buttons, 
+      & #zen-sidebar-top-buttons,
       #zen-sidebar-top-buttons-customization-target {
         padding: 0px !important;
         margin-top: -3px !important;
@@ -733,7 +757,7 @@ menupopup > menuitem[type="checkbox"] .menu-iconic-left {
   }
 
   @media (-moz-bool-pref: "zen.view.compact.hide-toolbar") and (-moz-bool-pref: "mod.shrinkcompactsidebar.remove-sidebar-top-margin") {
-    &:not([zen-single-toolbar='true']) {
+    &:not([zen-single-toolbar="true"]) {
       & #titlebar {
         margin-top: 0px !important;
       }
@@ -743,7 +767,7 @@ menupopup > menuitem[type="checkbox"] .menu-iconic-left {
   tab-group[split-view-group] {
     padding: 0 !important;
 
-    :root:not([zen-sidebar-expanded='true']) & {
+    :root:not([zen-sidebar-expanded="true"]) & {
       padding: 0 !important;
     }
   }
