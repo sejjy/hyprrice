@@ -1,23 +1,30 @@
 /*
   zenplified - An ultra-minimal Zen Browser UI configuration
-  Author: Jesse Mirabel (sejjy)
-  GitHub: https://github.com/sejjy/zenplified
+  Author: https://github.com/sejjy
+
+  Created: December 06, 2024
+  Version: Mozilla Zen 1.0.1-a.22
+
+  Updated: July 14, 2025
+  Version: Mozilla Zen 1.14.4b
 */
 
-/* Page */
+/* ────────────────────────────────────────────────────────────────── page ────
+*/
 
 @-moz-document url-prefix("chrome:"),
 url("about:blank"),
 url("about:home"),
 url("about:newtab"),
 url("about:privatebrowsing") {
-  /*
+
   /* dark theme */
   @media (prefers-color-scheme: dark) {
     body {
       background-color: #0d0c0c !important;
     }
   }
+
   /* light theme */
   @media (prefers-color-scheme: light) {
     body {
