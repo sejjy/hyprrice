@@ -80,6 +80,7 @@ alias grep='grep --color=auto'
 alias fd='fd --hidden --exclude timeshift'
 alias fdf='fd --type f'
 alias fdd='fd --type d'
+alias f='fuck'
 
 # pacman
 alias pup='sudo pacman -Syu'
@@ -98,21 +99,23 @@ alias yls='yay -Qm'
 # git
 alias g='git'
 alias gi='git init'
-alias gs='git status'
+alias gcl='git clone'
 alias ga='git add'
-alias gc='git commit -m'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias grh='git reset HEAD'
+alias gr='git restore'
+alias gb='git branch'
+alias gco='git checkout'
 alias gp='git push'
 alias gpl='git pull'
-alias gco='git checkout'
-alias gb='git branch'
-alias gd='git diff | bat'
-alias gl='git log --oneline --graph --decorate'
-alias gr='git restore'
-alias gdh='git diff HEAD | bat'
-alias gcl='git clone'
-alias grh='git reset HEAD'
 alias gst='git stash'
 alias gsta='git stash apply'
+alias gs='git status'
+alias gl='git log --oneline --graph --decorate'
+alias gd='git diff | bat'
+alias gdh='git diff HEAD | bat'
+alias gdc="git diff --color | grep --color=never -P '^\033\[3[12]m' | bat"
 
 # nvim
 alias v='vim'
@@ -202,3 +205,5 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export PATH="/home/sejjy/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/home/sejjy/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+
+eval $(thefuck --alias)
