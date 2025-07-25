@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-grn="\033[1;32m\033[0m"
-red="\033[1;31m\033[0m"
-gry="\033[1;30m\033[0m"
+GRN="\033[1;32m\033[0m"
+RED="\033[1;31m\033[0m"
+GRY="\033[1;30m\033[0m"
 
 echo
-echo -e "1. ${grn} start"
-echo -e "2. ${red} stop"
-echo -e "3. ${gry} status\n"
+echo -e "1. ${GRN} start"
+echo -e "2. ${RED} stop"
+echo -e "3. ${GRY} status\n"
 
 while true; do
   read -r -p "select an option: " option
