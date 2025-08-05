@@ -1,106 +1,170 @@
 #!/usr/bin/env bash
 
-# Author: Jesse Mirabel (@sejjy)
-# GitHub: https://github.com/sejjy/mechabar
+# Rofi Bluetooth menu
 
-# Rofi config
-config="$HOME/.config/rofi/bluetooth-menu.rasi"
+# Author:  Jesse Mirabel
+# GitHub:  https://github.com/sejjy
+# License: MIT
+#
+# Created: July 12, 2025
+# Updated: July 19, 2025
 
-# Rofi window override
-override_disabled="mainbox { children: [ textbox-custom, listview ]; } listview { lines: 1; padding: 6px 6px 8px; }"
+ROFI_CONFIG="$HOME/.config/rofi/bluetooth-menu.rasi"
 
-get_device_icon() {
-  local device_mac=$1
-  device_info=$(bluetoothctl info "$device_mac")
-  device_icon=$(echo "$device_info" | grep "Icon:" | awk '{print $2}')
+get_device_info() {
+  local device_address="$1"
+  local device_icon
+  local device_name
+  local device_type
+  local line
 
-  case "$device_icon" in
-  "audio-headphones" | "audio-headset") echo "󰋋 " ;; # Headphones
-  "video-display" | "computer") echo "󰍹 " ;;         # Monitor
-  "audio-input-microphone") echo "󰍬 " ;;             # Microphone
-  "input-keyboard") echo "󰌌 " ;;                     # Keyboard
-  "audio-speakers") echo "󰓃 " ;;                     # Speakers
-  "input-mouse") echo "󰍽 " ;;                        # Mouse
-  "phone") echo "󰏲 " ;;                              # Phone
-  *)
-    echo "󰂱 " # Default
-    ;;
+  # extract device name and type
+  while read -r line; do
+    if [[ $line == Name:* ]]; then
+      device_name="${line#Name: }"
+    elif [[ $line == Icon:* ]]; then
+      device_type="${line#Icon: }"
+    fi
+
+    if [[ -n $device_name && -n $device_type ]]; then
+      break
+    fi
+  done <<< "$(bluetoothctl info "$device_address")"
+
+  # source:
+  # https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/src/dbus-common.c
+  case "$device_type" in
+    "audio-card")         device_icon="󱡫 " ;;
+    "audio-headphones")   device_icon="󰋋 " ;;
+    "audio-headset")      device_icon="󰋎 " ;;
+    "camera-photo")       device_icon="󰄀 " ;;
+    "camera-video")       device_icon="󰕧 " ;;
+    "computer")           device_icon="󰍹 " ;;
+    "input-gaming")       device_icon="󰊖 " ;;
+    "input-keyboard")     device_icon="󰌌 " ;;
+    "input-mouse")        device_icon="󰍽 " ;;
+    "input-tablet")       device_icon="󰓷 " ;;
+    "modem")              device_icon="󱂇 " ;;
+    "multimedia-player")  device_icon="󰓃 " ;;
+    "network-wireless")   device_icon="󰀂 " ;;
+    "phone")              device_icon="󰄜 " ;;
+    "printer")            device_icon="󰐪 " ;;
+    "scanner")            device_icon="󰚫 " ;;
+    "video-display")      device_icon="󰔂 " ;;
+    *)                    device_icon="󰋖 " ;;
   esac
+
+  echo "${device_icon} ${device_name} (${device_address})"
 }
 
 while true; do
-  # Get list of paired devices
-  bluetooth_devices=$(bluetoothctl devices | while read -r line; do
-    device_mac=$(echo "$line" | awk '{print $2}')
-    device_name=$(echo "$line" | awk '{$1=$2=""; print substr($0, 3)}')
-    icon=$(get_device_icon "$device_mac")
-    echo "$icon $device_name"
-  done)
-
-  options=$(
-    echo "󰏌  Scan for devices"
-    echo "󰂲  Disable Bluetooth"
-    echo "$bluetooth_devices"
+  is_powered=$(
+    bluetoothctl show |
+      while read -r line; do
+        if [[ $line == Powered:* ]]; then
+          echo "${line#Powered: }"
+          break
+        fi
+      done
   )
-  option="󰂯  Enable Bluetooth"
 
-  # Get Bluetooth status
-  bluetooth_status=$(bluetoothctl show | grep "Powered:" | awk '{print $2}')
+  rofi_options=()
 
-  if [[ "$bluetooth_status" == "yes" ]]; then
-    selected_option=$(echo -e "$options" | rofi -dmenu -i -selected-row 1 -config "${config}" -p " " || pkill -x rofi)
-  else
-    selected_option=$(echo -e "$option" | rofi -dmenu -i -selected-row 1 -config "${config}" -theme-str "${override_disabled}" -p " " || pkill -x rofi)
-  fi
+  if [[ $is_powered == "yes" ]]; then
+    rofi_options+=("󰂲  Disable Bluetooth")
+    rofi_options+=("󰏌  Scan for devices")
 
-  # Exit if no option is selected
-  if [ -z "$selected_option" ]; then
-    exit
-  fi
+    # extract the address
+    while read -r line; do
+      if [[ $line == Device* ]]; then
+        device_address="${line#Device }"
+        device_address="${device_address%% *}"
 
-  # Actions based on selected option
-  case "$selected_option" in
-  *"Enable Bluetooth")
-    notify-send "Bluetooth Enabled" -i "package-installed-outdated"
-    rfkill unblock bluetooth
-    bluetoothctl power on
-    sleep 1
-    ;;
-  *"Disable Bluetooth")
-    notify-send "Bluetooth Disabled" -i "package-broken"
-    rfkill block bluetooth
-    bluetoothctl power off
-    exit
-    ;;
-  *"Scan for devices")
-    notify-send "Press '?' to show help." -i "package-installed-outdated"
-    kitty --title '󰂱  Bluetooth TUI' bash -c "bluetui" # Launch bluetui
-    ;;
-  *)
-    # Extract device name
-    device_name="${selected_option#* }"
-    device_name="${device_name## }"
-
-    if [[ -n "$device_name" ]]; then
-      # Get MAC address
-      device_mac=$(bluetoothctl devices | grep "$device_name" | awk '{print $2}')
-
-      # Trust and pair device
-      bluetoothctl trust "$device_mac" >/dev/null 2>&1
-      bluetoothctl pair "$device_mac" >/dev/null 2>&1
-
-      # Connect to device
-      bluetoothctl connect "$device_mac" &
-      sleep 3
-      connection_status=$(bluetoothctl info "$device_mac" | grep "Connected:" | awk '{print $2}')
-
-      if [[ "$connection_status" == "yes" ]]; then
-        notify-send "Connected to \"$device_name\"." -i "package-installed-outdated"
-        exit
+        device_info=$(get_device_info "$device_address")
+        rofi_options+=("${device_info}")
       else
-        notify-send "Failed to connect to \"$device_name\"." -i "package-broken"
+        continue
       fi
-    fi
-    ;;
+    done <<< "$(bluetoothctl devices)"
+
+    rofi_override=()
+
+  # bluetooth is disabled
+  else
+    rofi_options=("󰂯  Enable Bluetooth")
+    rofi_override=(
+      -theme-str \
+        "mainbox { children: [ textbox-custom, listview ]; } \
+        listview { lines: 1; padding: 8px 8px 10px; }"
+    )
+  fi
+
+  ROFI_PROMPT=" "
+
+  # launch rofi
+  rofi_selected=$(
+    printf "%s\n" "${rofi_options[@]}" |
+      rofi -dmenu -selected-row 0 -p "$ROFI_PROMPT" \
+           -config "$ROFI_CONFIG" "${rofi_override[@]}" ||
+      pkill -x rofi
+  )
+
+  if [[ -z $rofi_selected ]]; then
+    exit
+  fi
+
+  case $rofi_selected in
+    *"Enable Bluetooth")
+      notify-send "Bluetooth enabled" --icon="package-installed-outdated"
+      rfkill unblock bluetooth
+      bluetoothctl power on
+      sleep 1
+      ;;
+    *"Disable Bluetooth")
+      notify-send "Bluetooth disabled" --icon="package-broken"
+      rfkill block bluetooth
+      bluetoothctl power off
+      exit
+      ;;
+    *"Scan for devices")
+      notify-send "Press '?' to show help" --icon="package-installed-outdated"
+      kitty --title "󰂱  Bluetooth TUI" bash -c "bluetui"
+      ;;
+
+    # device selected
+    *)
+      device_name="${rofi_selected%% (*}"
+      device_name="${device_name:3}" # removes the icon and leading spaces
+
+      device_address="${rofi_selected##*(}"
+      device_address="${device_address%)}"
+
+      if [[ -n $device_address ]]; then
+        notify-send "Connecting to $device_name" \
+                    --icon="package-installed-outdated"
+        bluetoothctl pair "$device_address" &&
+        bluetoothctl connect "$device_address"
+        sleep 3
+
+        while read -r line; do
+          if [[ $line == Connected:* ]]; then
+            is_connected="${line#Connected: }"
+            break
+          fi
+        done <<< "$(bluetoothctl info "$device_address")"
+
+        if [[ $is_connected == "yes" ]]; then
+          notify-send "Connected to $device_name" --icon="package-install"
+          exit
+        else
+          notify-send "Failed to connect to $device_name" \
+                      --icon="package-broken"
+        fi
+
+      # this should not happen
+      else
+        notify-send "Device not found" --icon="package-broken"
+      fi
+      ;;
   esac
 done

@@ -363,7 +363,7 @@
     "tooltip-format": "Playing: {title} - {artist}",
     "tooltip-format-paused": "Paused: {title} - {artist}",
     "min-length": 5,
-    "max-length": 35
+    "max-length": 40
   },
 
   // ──────────────────────────────────────────────────────┤ output device ├───
@@ -420,7 +420,7 @@
   // ───────────────────────────────────────────────────────┤ power button ├───
 
   "custom/power": {
-    "format": " ",
+    "format": "󰤆 ",
     "tooltip": false,
     // "tooltip-format": "Power Menu",
     "on-click": "~/.config/waybar/scripts/power-menu.sh"

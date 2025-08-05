@@ -19,20 +19,24 @@ window#waybar {
 */
 window#waybar > box {
   background: @main-bg;
-  margin: 2px;
+  margin: 4px;
 }
 
 /* ─────────────────────────────────────────────────────────────┤ tooltips ├───
 */
 tooltip {
   background: @main-bg;
-  border: 1.5px solid @main-br;
-  border-radius: 8px;
+  border: 2px solid @main-br;
+  border-radius: 10px;
 }
 
 tooltip label {
   color: @main-fg;
-  margin: -1.5px 3px;
+  margin: 0 4px;
+}
+
+tooltip decoration {
+  background: transparent;
 }
 
 /* ──────────────────────────────────────────────────────────────┤ general ├───
@@ -137,7 +141,7 @@ tooltip label {
 /* ──────────────────────────────────────────────────────────┤ temperature ├───
 */
 #custom-paddc {
-  padding-right: 22px;
+  padding-right: 18px;
 }
 
 #custom-left2 {
@@ -204,7 +208,7 @@ tooltip label {
   background: @distro-bg;
   margin: 0 -1px -2px 0;
   padding: 0 0 0 3px;
-  text-shadow: 0 0 1.5px rgba(0, 0, 0, 1);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 1);
 }
 
 #custom-right2 {
@@ -223,7 +227,7 @@ tooltip label {
 
 #idle_inhibitor {
   background: @time;
-  padding: 0 0 0 7px;
+  padding: 0 0 0 8px;
 }
 
 #idle_inhibitor:hover {
@@ -233,7 +237,7 @@ tooltip label {
 #clock.time {
   background: @time;
   margin-left: -2px;
-  padding: 0 3px 0 0;
+  padding: 0 2px 0 0;
 }
 
 #custom-right3 {
@@ -245,6 +249,7 @@ tooltip label {
 */
 #clock.date {
   background: @date;
+  padding: 0 2px 0 0;
 }
 
 #clock.date:hover {
@@ -260,7 +265,7 @@ tooltip label {
 */
 #custom-wifi {
   background: @tray;
-  padding: 0 8px 0 5px;
+  padding: 0 9px 0 5px;
 }
 
 #custom-wifi:hover {
@@ -271,7 +276,8 @@ tooltip label {
 */
 #bluetooth {
   background: @tray;
-  padding-right: 5px;
+  padding-right: 6px;
+  padding-left: 6px;
 }
 
 #bluetooth:hover {
@@ -281,7 +287,8 @@ tooltip label {
 /* ────────────────────────────────────────────────────────┤ system update ├───
 */
 #custom-update {
-  padding-right: 8px;
+  padding-right: 10px;
+  padding-left: 5px;
   background: @tray;
 }
 
@@ -396,7 +403,7 @@ tooltip label {
 
 * {
   font-family: "JetBrainsMono Nerd Font";
-  font-size: 10px;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -421,7 +428,7 @@ tooltip label,
 #custom-right3,
 #custom-right4,
 #custom-right5 {
-  font-size: 14.68px;
+  font-size: 19.68px;
 }
 
 /* ─────────────────────────────────────────────────┤ left & right inverse ├───
@@ -429,18 +436,19 @@ tooltip label,
 #custom-leftin1,
 #custom-leftin2,
 #custom-rightin1 {
-  font-size: 15.5px;
+  font-size: 21.5px;
 }
 
 /* ──────────────────────────────────────────────────────────┤ distro icon ├───
 */
 #custom-distro {
-  font-size: 14.6px;
+  font-size: 19.6px;
 }
 
 #custom-left5,
 #custom-right2 {
-  font-size: 15.68px;
+  font-size: 21.68px;
+	margin-top: -1px;
 }
 
 /*
@@ -450,17 +458,18 @@ tooltip label,
 /* ───────────────────────────────────────────────────────────┤ workspaces ├───
 */
 #workspaces button {
-  border-radius: 8px;
-  padding: 0 2px;
+  border-radius: 13px;
+  padding: 0 7px 0;
 }
 
 #workspaces button.active {
-  padding: 0 6px;
+  padding: 0 13px;
 }
 
 /* ─────────────────────────────────────────────────────────┤ power button ├───
 */
 #custom-power {
-  border-radius: 10px;
-  padding: 0 6px 0 9px;
+  font-size: 16px;
+  border-radius: 15px;
+  padding: 0 5px 0 13px;
 }

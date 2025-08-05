@@ -420,7 +420,7 @@
   // ───────────────────────────────────────────────────────┤ power button ├───
 
   "custom/power": {
-    "format": " ",
+    "format": "󰤆 ",
     "tooltip": false,
     // "tooltip-format": "Power Menu",
     "on-click": "~/.config/waybar/scripts/power-menu.sh"

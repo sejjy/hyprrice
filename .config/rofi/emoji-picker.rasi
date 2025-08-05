@@ -1,95 +1,100 @@
-/* Emoji picker */
+/* emoji picker */
 
 @theme "~/.config/rofi/theme.rasi"
 
 configuration {
-  font:                     "JetBrainsMono Nerd Font 8";
-  display-emoji:            " ";
+	font:					"JetBrainsMono Nerd Font 12";
+	display-emoji:			" ";
+
 }
 
-/* Window */
+/* window */
 
 window {
-  width:                    250px;
-  border:                   3px;
-  border-radius:            10px;
-  border-color:             @main-br;
-  background-color:         @main-bg;
-  children:                 [ mainbox ];
+	width:					375px;
+	border:					4px;
+	border-radius:			12px;
+	border-color:			@main-br;
+	background-color:		@main-bg;
+	children:				[ mainbox ];
 }
 
 mainbox {
-  spacing:                  0;
-  background-color:         @main-br;
-  text-color:               @main-fg;
-  children:                 [ textbox-custom, listview, inputbar ];
+	spacing:				0;
+	background-color:		@main-br;
+	text-color:				@main-fg;
+	children:				[ textbox-custom, listview, inputbar ];
 }
 
 textbox-custom {
-  font:                     "JetBrainsMono Nerd Font Bold 8";
-  horizontal-align:         0.5;
-  padding:                  1px 0;
-  expand:                   false;
-  background-color:         @select-bg;
-  text-color:               @select-fg;
-  expand:                   false;
-  content:                  "󰱨  Emojis";
+	horizontal-align:		0.5;
+	padding:				1px 0;
+	expand:					false;
+	background-color:		@select-bg;
+	text-color:				@select-fg;
+	expand:					false;
+	content:				"󰱱 Emojis";
 }
 
-/* Input */
-
-inputbar {
-  margin:                   -32px 6px 6px;
-  border-radius:            6px;
-  spacing:                  inherit;
-  background-color:         @input-bg;
-  text-color:               inherit;
-  children:                 [ prompt, entry ];
-}
-prompt {
-  padding:                  6px 10px;
-  background-color:         inherit;
-  text-color:               inherit;
-}
-entry {
-  placeholder:              "Search";
-  padding:                  6px 0;
-  cursor:                   text;
-  background-color:         inherit;
-  text-color:               inherit;
-}
-
-/* List */
+/* list */
 
 listview {
-  border:                   2px 0 0 0;
-  border-radius:            8px;
-  border-color:             @main-br;
-  lines:                    4;
-  columns:                  5;
-  fixed-columns:            true;
-  dynamic:                  false;
-  cycle:                    false;
-  margin:                   0 0 -2px;
-  padding:                  6px 6px 40px;
-  background-color:         @main-bg;
+	border:					2px 0 0 0;
+	border-radius:			10px;
+	border-color:			@main-br;
+	lines:					4;
+	columns:				5;
+	fixed-columns:			true;
+	dynamic:				false;
+	cycle:					false;
+	margin:					0 0 -2px;
+	padding:				8px 8px 54px;
+	background-color:		@main-bg;
 }
 
 element {
-  padding:                  6px;
-  cursor:                   pointer;
-  background-color:         inherit;
-  text-color:               @main-fg;
+	padding:				8px;
+	cursor:					pointer;
+	background-color:		inherit;
+	text-color:				@main-fg;
 }
+
 element selected active,
 element selected normal {
-  border-radius:            6px;
-  background-color:         @select-bg;
-  text-color:               @select-fg;
+	border-radius:			8px;
+	background-color:		@select-bg;
+	text-color:				@select-fg;
 }
+
 element-text {
-  padding:                  5px 6px 8px 6px;
-  cursor:                   inherit;
-  background-color:         inherit;
-  text-color:               inherit;
+	font:					"JetBrainsMono Nerd Font 18";
+	padding:				10px 0 6px 11px;
+	cursor:					inherit;
+	background-color:		inherit;
+	text-color:				inherit;
+}
+
+/* input */
+
+inputbar {
+	margin:					-44px 8px 8px;
+	border-radius:			8px;
+	spacing:				inherit;
+	background-color:		@input-bg;
+	text-color:				inherit;
+	children:				[ prompt, entry ];
+}
+
+prompt {
+	padding:				8px 6px 8px 12px;
+	background-color:		inherit;
+	text-color:				inherit;
+}
+
+entry {
+	placeholder:			"Search";
+	padding:				8px 12px 8px 0;
+	cursor:					text;
+	background-color:		inherit;
+	text-color:				inherit;
 }

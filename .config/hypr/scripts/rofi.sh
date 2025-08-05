@@ -23,7 +23,7 @@ case "$1" in
       rofi -modi emoji -show emoji \
       -kb-secondary-copy "" -kb-custom-1 Ctrl+c -kb-accept-alt "" \
       -config "$HOME/.config/rofi/emoji-picker.rasi" \
-      -emoji-format "<span font='12'>{emoji}</span>"
+      -emoji-format "{emoji}"
     ;;
   "W")
     pkill -x rofi ||

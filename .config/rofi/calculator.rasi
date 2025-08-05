@@ -1,76 +1,77 @@
-/* Calculator */
+/* calculator */
 
 @theme "~/.config/rofi/theme.rasi"
 
 configuration {
-  font:                     "JetBrainsMono Nerd Font 8";
-  calc-display-format:      "{name}";
+	font:					"JetBrainsMono Nerd Font 12";
+	calc-display-format:	"{name}";
 }
 
-/* Window */
+/* window */
 
 window {
-  width:                    250px;
-  border:                   3px;
-  border-radius:            10px;
-  border-color:             @main-br;
-  background-color:         @main-bg;
-  children:                 [ mainbox ];
+	width:					375px;
+	border:					4px;
+	border-radius:			12px;
+	border-color:			@main-br;
+	background-color:		@main-bg;
+	children:				[ mainbox ];
 }
 
 mainbox {
-  spacing:                  0;
-  background-color:         @main-br;
-  text-color:               @main-fg;
-  children:                 [ textbox-custom, message, inputbar ];
+	spacing:				0;
+	background-color:		@main-br;
+	text-color:				@main-fg;
+	children:				[ textbox-custom, message, inputbar ];
 }
 
 textbox-custom {
-  font:                     "JetBrainsMono Nerd Font Bold 8";
-  horizontal-align:         0.5;
-  padding:                  1px 0;
-  expand:                   false;
-  background-color:         @select-bg;
-  text-color:               @select-fg;
-  expand:                   false;
-  content:                  "󰦣  Calculator";
+	horizontal-align:		0.5;
+	padding:				1px 0;
+	expand:				 	false;
+	background-color:		@select-bg;
+	text-color:				@select-fg;
+	expand:				 	false;
+	content:				"󰃬 Calculator";
 }
 
-/* Input */
-
-inputbar {
-  margin:                   -32px 6px 6px;
-  border-radius:            6px;
-  spacing:                  inherit;
-  background-color:         @input-bg;
-  text-color:               inherit;
-  children:                 [ entry ];
-}
-entry {
-  horizontal-align:         1;
-  padding:                  6px 12px;
-  cursor:                   text;
-  background-color:         inherit;
-  text-color:               inherit;
-}
-
-/* Output */
+/* output */
 
 message {
-  border:                   2px 0 0 0;
-  border-radius:            8px;
-  border-color:             @main-br;
-  lines:                    6;
-  cycle:                    false;
-  margin:                   0 0 -2px;
-  padding:                  6px 6px 40px;
-  background-color:         @main-bg;
-  text-color:               @main-fg;
+	border:					2px 0 0;
+	border-radius:			10px;
+	border-color:			@main-br;
+	lines:					7;
+	cycle:					false;
+	margin:					0 0 -2px;
+	padding:				8px 8px 54px;
+	background-color:		@main-bg;
+	text-color:				@main-fg;
 }
+
 textbox {
-  font:                     "JetBrainsMono Nerd Font Bold 10";
-  horizontal-align:         1;
-  padding:                  6px;
-  background-color:         inherit;
-  text-color:               @main-fg;
+	font:					"JetBrainsMono Nerd Font 18";
+	horizontal-align:		1;
+	padding:				8px;
+	background-color:		inherit;
+	text-color:				@main-fg;
+}
+
+/* input */
+
+inputbar {
+	margin:					-44px 8px 8px;
+	border-radius:			8px;
+	spacing:				inherit;
+	background-color:		@input-bg;
+	text-color:				inherit;
+	children:				[ entry ];
+}
+
+entry {
+	horizontal-align:		1;
+	padding:				8px 12px;
+	cursor:				 	text;
+	background-color:		inherit;
+	text-color:				inherit;
 }

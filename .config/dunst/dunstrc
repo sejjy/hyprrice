@@ -25,11 +25,11 @@
   # dynamic width from 0 to 300
   # width = (0, 300)
   # constant width of 300
-  width = 200
+  width = 300
 
   # The height of a single notification, excluding the frame.
   # dynamic height from 0 to 300
-  height = (0, 75)
+  height = (0, 100)
   # constant height of 300
   # height = 300
   # NOTE: Dunst from version 1.11 and older don't support dynamic height
@@ -63,10 +63,10 @@
   progress_bar_frame_width = 0
 
   # Set the minimum width for the progress bar
-  progress_bar_min_width = 200
+  progress_bar_min_width = 230
 
   # Set the maximum width for the progress bar
-  progress_bar_max_width = 200
+  progress_bar_max_width = 230
 
   # Corner radius for the progress bar. 0 disables rounded corners.
   progress_bar_corner_radius = 2
@@ -101,14 +101,14 @@
   padding = 8
 
   # Horizontal padding.
-  horizontal_padding = 8
+  horizontal_padding = 10
 
   # Padding between text and icon.
   text_icon_padding = 0
 
   # Defines width in pixels of frame around the notification window.
   # Set to 0 to disable.
-  frame_width = 2
+  frame_width = 3
 
   # Defines color of the frame around the notification window.
   frame_color = "#cdd6f4"
@@ -144,7 +144,7 @@
 
   ### Text ###
 
-  font = JetBrainsMono Nerd Font 8
+  font = JetBrainsMono Nerd Font 12
 
   # The spacing between lines.  If the height is smaller than the
   # font height, it will get raised to the font height.
@@ -271,7 +271,7 @@
   # corners.
   # The radius will be automatically lowered if it exceeds half of the
   # notification height to avoid clipping text and/or icons.
-  corner_radius = 10
+  corner_radius = 12
 
   # Define which corners to round when drawing the window. If the corner radius
   # is set to 0 this option will be ignored.

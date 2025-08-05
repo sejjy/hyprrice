@@ -103,7 +103,8 @@ alias gcl='git clone'
 alias ga='git add'
 alias gc='git commit'
 alias gcm='git commit -m'
-alias grh='git reset HEAD'
+alias grh='git reset --hard HEAD'
+alias gcf='git clean -df'
 alias gr='git restore'
 alias gb='git branch'
 alias gco='git checkout'
@@ -185,9 +186,9 @@ function command_not_found_handler {
 #  Local
 # =================
 alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'"
-alias ytd="${HOME}/.config/hypr/scripts/yt_dlp.sh"
+alias ytd="${HOME}/.config/hypr/scripts/ytdlp.sh"
 alias clean="${HOME}/.config/hypr/scripts/cleanup.sh"
-alias server="${HOME}/.config/hypr/scripts/local_server.sh"
+alias server="${HOME}/.config/hypr/scripts/server.sh"
 alias discord="discord --ozone-platform-hint=auto"
 
 # =================
