@@ -1,86 +1,86 @@
-# =================
-#  Prompt
-# =================
-# enable powerlevel10k instant prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# enable powerlevel10k instant prompt. should stay close to the top of ~/.zshrc.
+# initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "$HOME/.cache/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+	source "$HOME/.cache/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-ZLE_RPROMPT_INDENT=0 # remove right prompt indent
+#----------------#
+#	Parameters
+#----------------#
 
-# =================
-#  Configuration
-# =================
-# history
-HISTFILE="${HOME}/.zsh_history"
+HISTFILE="$HOME/.zsh_history"
 HISTSIZE=5000
 SAVEHIST=5000
-setopt append_history    # append to HISTFILE
-setopt extended_history  # save timestamp and duration
-setopt hist_ignore_dups  # ignore duplicate commands
-setopt hist_ignore_space # ignore commands starting with space
-setopt share_history     # share history between sessions
+ZLE_RPROMPT_INDENT=0
 
-# navigation
-setopt auto_cd           # change directories without cd
-setopt auto_pushd        # make cd push to directory stack
-setopt pushd_ignore_dups # don't push duplicates to directory stack
+#-------------#
+#	Options
+#-------------#
 
-# completion
+setopt AUTO_CD
+setopt GLOB_DOTS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_BY_COPY
+setopt HIST_SAVE_NO_DUPS
+setopt INC_APPEND_HISTORY
+setopt HASH_LIST_ALL
+setopt CORRECT
+
+#-------------#
+#	Exports
+#-------------#
+
+export MANPAGER='nvim +Man!'
+export FZF_DEFAULT_OPTS=" \
+	--color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
+	--color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
+	--color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
+	--color=selected-bg:#45475A \
+	--color=border:#6C7086,label:#CDD6F4"
+
+#-------------#
+#	Keymaps
+#-------------#
+
+bindkey -v # vi mode
+bindkey '^ ' autosuggest-accept
+
+#----------------#
+#	Completion
+#----------------#
+
 autoload -Uz compinit
+compinit
+
+zstyle ':completion:*:descriptions' format '%B%F{blue}%d%f%b'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:descriptions' format '%B%F{blue}%d%f%b'
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-# load completion (use cache if available)
-if [[ -n "${ZSH_COMPDUMP}" && -f "${ZSH_COMPDUMP}" ]]; then
-  compinit -C
-else
-  compinit
-fi
+#-------------#
+#	Aliases
+#-------------#
 
-# =================
-#  Key Bindings
-# =================
-bindkey -e # emacs key bindings
-
-# custom key bindings
-bindkey '^[[C' autosuggest-accept # right
-bindkey "\e[C" forward-char       # left
-bindkey '^[[1;5D' backward-word   # ctrl + left
-bindkey '^[[1;5C' forward-word    # ctrl + right
-bindkey '^H' backward-kill-word   # ctrl + backspace
-
-# =================
-#  Plugins
-# =================
-# autosuggestions
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# theme
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
-# =================
-#  Aliases
-# =================
-# general
-alias c='clear'
-alias e='exit'
-alias reload='exec zsh' # source ~/.zshrc
-alias mkdir='mkdir -p'
+# file
+alias cp='cp -i'
+alias mv='mv -i'
 alias rm='rm -i'
+alias mkdir='mkdir -p'
+
+# list
 alias ls='ls --color=auto --group-directories-first'
 alias la='ls -A'
 alias ll='ls -alh'
-alias grep='grep --color=auto'
+
+# alt
+alias find='fd'
+alias grep='rg'
 alias fd='fd --hidden --exclude timeshift'
-alias fdf='fd --type f'
-alias fdd='fd --type d'
-alias f='fuck'
+alias fdf='fd --type file'
+alias fdd='fd --type dir'
 
 # pacman
 alias pup='sudo pacman -Syu'
@@ -97,26 +97,22 @@ alias yrm='yay -Rns'
 alias yls='yay -Qm'
 
 # git
-alias g='git'
-alias gi='git init'
 alias gcl='git clone'
+alias gi='git init'
 alias ga='git add'
 alias gc='git commit'
 alias gcm='git commit -m'
 alias grh='git reset --hard HEAD'
-alias gcf='git clean -df'
+alias gcf='git clean -d --force'
 alias gr='git restore'
 alias gb='git branch'
 alias gco='git checkout'
 alias gp='git push'
 alias gpl='git pull'
-alias gst='git stash'
-alias gsta='git stash apply'
 alias gs='git status'
-alias gl='git log --oneline --graph --decorate'
+alias gl='git log --decorate --graph --oneline'
 alias gd='git diff | bat'
 alias gdh='git diff HEAD | bat'
-alias gdc="git diff --color | grep --color=never -P '^\033\[3[12]m' | bat"
 
 # nvim
 alias v='vim'
@@ -126,85 +122,75 @@ alias nh="cd $HOME/.config/hypr && nvim"
 alias nw="cd $HOME/.config/waybar && nvim"
 
 # tmux
-alias t="tmux"
-alias tn="tmux new-session"
-alias ta="tmux attach-session"
-alias tls="tmux list-sessions"
-alias tk="tmux kill-session"
-alias tks="tmux kill-server"
+alias t='tmux'
+alias tn='tmux new-session'
+alias ta='tmux attach-session'
+alias tls='tmux list-sessions'
+alias tk='tmux kill-session'
+alias tks='tmux kill-server'
 
-# docker
-alias d='docker'
-alias dr='docker run'
-alias dp='docker ps'
-alias dpa='docker ps --all'
-alias dim='docker images'
-alias drm='docker rm'
-alias drmi='docker rmi'
-alias ds='docker start'
-alias dst='docker stop'
-alias dso='docker start open-webui'
-alias dsto='docker stop open-webui'
+# misc
+alias np="playerctl metadata -af '{{ title }} - {{ artist }}'"
+alias ytd="$HOME/.config/hypr/scripts/ytdlp.sh"
+alias clean="$HOME/.config/hypr/scripts/cleanup.sh"
+alias server="$HOME/.config/hypr/scripts/server.sh"
+alias discord='discord --ozone-platform-hint=auto'
+alias reload='exec zsh'
 
-# ollama
-alias o='ollama'
-alias oc='ollama create'
-alias ol='ollama list'
-alias op='ollama ps'
-alias orm='ollama rm'
-alias or='ollama run'
-alias os='ollama stop'
-alias ord='ollama run deepseek-r1:1.5b'
-alias orq='ollama run qwen2.5-coder:3b'
-alias osd='ollama stop deepseek-r1:1.5b'
-alias osq='ollama stop qwen2.5-coder:3b'
+#-------------------------------------------#
+#	pacman -F "command not found" handler
+#	https://wiki.archlinux.org/title/Zsh
+#-------------------------------------------#
 
-# =================
-#  Custom
-# =================
 function command_not_found_handler {
-  printf "zsh: command not found: %s\n" "$1"
-  if ! hash pacman 2>/dev/null; then return 127; fi
-  local entries=( ${(f)"$(/usr/bin/pacman -F --machinereadable -- "/usr/bin/$1")"} )
-  if (( ${#entries[@]} )); then
-    local purple="\e[1;35m" bright="\e[0;1m" green="\e[1;32m" reset="\e[0m"
-    printf "${bright}$1${reset} may be found in the following packages:\n"
-    local pkg
-    for entry in "${entries[@]}"; do
-      local fields=( ${(0)entry} )
-      if [[ "$pkg" != "${fields[2]}" ]]; then
-        printf "${purple}%s/${bright}%s ${green}%s${reset}\n" "${fields[1]}" "${fields[2]}" "${fields[3]}"
-      fi
-      printf "    /%s\n" "${fields[4]}"
-      pkg="${fields[2]}"
-    done
-  fi
-  return 127
+	printf 'zsh: command not found: %s\n' "$1"
+
+	local entries=(
+		${(f)"$(/usr/bin/pacman -F --machinereadable -- "/usr/bin/$1")"}
+	)
+	local purple='\e[1;35m'
+	local bright='\e[0;1m'
+	local green='\e[1;32m'
+	local reset='\e[0m'
+
+	if (( ${#entries[@]} )); then
+		printf "${bright}$1${reset} may be found in the following packages:\n"
+		local pkg
+
+		for entry in "${entries[@]}"; do
+			local fields=(${(0)entry})
+
+			if [[ "$pkg" != "${fields[2]}" ]]; then
+				printf "${purple}%s/${bright}%s ${green}%s${reset}\n" \
+					"${fields[1]}" "${fields[2]}" "${fields[3]}"
+			fi
+
+			printf '\t/%s\n' "${fields[4]}"
+			pkg="${fields[2]}"
+		done
+	fi
+	return 127
 }
 
-# =================
-#  Local
-# =================
-alias np="playerctl metadata --all-players --format '{{ title }} - {{ artist }}'"
-alias ytd="${HOME}/.config/hypr/scripts/ytdlp.sh"
-alias clean="${HOME}/.config/hypr/scripts/cleanup.sh"
-alias server="${HOME}/.config/hypr/scripts/server.sh"
-alias discord="discord --ozone-platform-hint=auto"
+#-------------#
+#	Plugins
+#-------------#
 
-# =================
-#  Environment
-# =================
-# batman
-if command -v batman &>/dev/null; then
-  if [[ ! -f "${HOME}/.cache/batman_env" ]]; then
-    batman --export-env > "${HOME}/.cache/batman_env"
-  fi
-  source "${HOME}/.cache/batman_env"
-fi
+# Better vi mode
+# https://github.com/jeffreytse/zsh-vi-mode
+source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
-export EDITOR='nvim'
-export VISUAL='nvim'
-export PATH="/home/sejjy/.config/herd-lite/bin:$PATH"
-export PHP_INI_SCAN_DIR="/home/sejjy/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+ZVM_CURSOR_STYLE_ENABLED=false
 
-eval $(thefuck --alias)
+# Live suggestions
+# https://github.com/zsh-users/zsh-autosuggestions
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+
+# Prompt
+# https://github.com/romkatv/powerlevel10k
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+# to customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"
