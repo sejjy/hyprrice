@@ -181,6 +181,10 @@ function command_not_found_handler {
 source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 ZVM_CURSOR_STYLE_ENABLED=false
+ZVM_VI_SURROUND_BINDKEY='s-prefix'
+ZVM_VI_HIGHLIGHT_FOREGROUND=#cdd6f4
+ZVM_VI_HIGHLIGHT_BACKGROUND=#45475a
+ZVM_LINE_INIT_MODE="$ZVM_MODE_INSERT"
 
 # Live suggestions
 # https://github.com/zsh-users/zsh-autosuggestions
