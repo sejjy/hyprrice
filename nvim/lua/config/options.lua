@@ -48,4 +48,5 @@ vim.opt.winborder = "single"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.termguicolors = true
 
+-- auto-session
 vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

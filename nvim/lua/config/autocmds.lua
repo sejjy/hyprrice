@@ -97,18 +97,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		-- goto
-		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, gdesc("[D]eclaration"))
+		vim.keymap.set("n", "grd", vim.lsp.buf.declaration, gdesc("[d]eclaration"))
 		vim.keymap.set("n", "gd", picker.lsp_definitions, gdesc("[d]efinition"))
-		vim.keymap.set("n", "gr", picker.lsp_references, gdesc("[r]eferences"))
-		vim.keymap.set("n", "gI", picker.lsp_implementations, gdesc("[I]mplementation"))
+		vim.keymap.set("n", "grr", picker.lsp_references, gdesc("[r]eferences"))
+		vim.keymap.set("n", "gri", picker.lsp_implementations, gdesc("[i]mplementation"))
 
-		vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, ldesc("[r]ename"))
-		vim.keymap.set("n", "<Leader>lD", picker.lsp_type_definitions, ldesc("type [D]efinition"))
-		vim.keymap.set("n", "<Leader>ld", picker.lsp_symbols, ldesc("[d]ocument symbols"))
-		vim.keymap.set("n", "<Leader>lw", picker.lsp_workspace_symbols, ldesc("[w]orkspace symbols"))
+		vim.keymap.set("n", "grn", vim.lsp.buf.rename, ldesc("re[n]ame"))
+		vim.keymap.set("n", "grt", picker.lsp_type_definitions, ldesc("[t]ype definition"))
+		vim.keymap.set("n", "<Leader>sd", picker.lsp_symbols, ldesc("[d]ocument symbols"))
+		vim.keymap.set("n", "<Leader>sw", picker.lsp_workspace_symbols, ldesc("[w]orkspace symbols"))
 
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { silent = true })
-		vim.keymap.set({ "n", "x" }, "<Leader>la", vim.lsp.buf.code_action, ldesc("code [a]ctions"))
+		vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, ldesc("code [a]ctions"))
 
 		vim.keymap.set("n", "<Leader>th", function()
 			local lsp_hint = { bufnr = bufnum }

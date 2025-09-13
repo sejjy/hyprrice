@@ -26,7 +26,7 @@ return {
 			float_term:toggle()
 		end
 
-		vim.keymap.set({ "n", "t" }, "<A-t>", "<Cmd>lua float_term_toggle()<Enter>", { noremap = true })
+		vim.keymap.set({ "n", "t" }, "<A-t>", "<Cmd>lua float_term_toggle()<Enter>")
 		vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 	end,
 }

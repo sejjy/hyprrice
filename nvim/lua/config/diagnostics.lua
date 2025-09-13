@@ -35,6 +35,9 @@ local function toggle_diagnostics()
 		signs = not vim.diagnostic.config().signs,
 	})
 end
+local function ldesc(desc)
+	return { desc = "LSP: " .. desc }
+end
 
-vim.keymap.set("n", "<Leader>td", toggle_diagnostics, { desc = "LSP: toggle [d]iagnostics" })
-vim.keymap.set("n", "<Leader>q", vim.diagnostic.setloclist, { desc = "LSP: [q]uickfix diagnostics" })
+vim.keymap.set("n", "<Leader>td", toggle_diagnostics, ldesc("toggle [d]iagnostics"))
+vim.keymap.set("n", "<Leader>q", vim.diagnostic.setloclist, ldesc("[q]uickfix diagnostics"))

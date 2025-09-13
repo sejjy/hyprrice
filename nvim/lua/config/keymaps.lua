@@ -58,8 +58,14 @@ vim.keymap.set({ "n", "x" }, "(", function()
 end)
 
 vim.keymap.set("n", "<Esc>", ":nohlsearch<Enter>", { silent = true })
-vim.keymap.set("n", "<Leader>cs", ":set spell!<CR>", { silent = true, desc = "check [s]pelling" })
-vim.keymap.set("n", "<Leader>ra", ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "replace [a]ll" })
+vim.keymap.set("n", "<Leader>ts", ":set spell!<CR>", { silent = true, desc = "toggle [s]pell check" })
+vim.keymap.set("n", "<Leader>rn", ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "re[n]ame" })
 
-vim.keymap.set("n", "<Leader>cx", ":!chmod +x %<Enter>", { silent = true, desc = "chmod +[x]" })
+-- shell
+vim.keymap.set("n", "<Leader>rx", ":!chmod +x %<Enter>", { silent = true, desc = "chmod +[x]" })
 vim.keymap.set("n", "<Leader>rf", ":!npm run format<Enter>", { silent = true, desc = "npm run [f]ormat" })
+
+-- shorten desc
+vim.keymap.set("n", "gx", function()
+	vim.cmd("normal! gx")
+end, { desc = "Opens filepath or URI under cursor" })
